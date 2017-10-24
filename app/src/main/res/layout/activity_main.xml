@@ -3,8 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.datviet.scanner.BottomBarActivity">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.datviet.scanner.MainActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar" />
+
+    <FrameLayout
+        android:id="@+id/frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </FrameLayout>
+
 
     <android.support.design.widget.BottomNavigationView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +27,7 @@
         app:itemTextColor="@color/white"
         app:itemBackground="@color/barColor"
         app:itemIconTint="@drawable/selector"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
         app:menu="@menu/menu_navigation" />
 
 

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:background="@drawable/shape"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Load ảnh minh họa"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textSize="18dp"
+                />
+            <android.support.v7.widget.SwitchCompat
+                android:theme="@style/SCBSwitch"
+                android:id="@+id/swImageSwitch"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:background="@drawable/shape"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tắt âm thanh quét"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textSize="18dp"
+                android:layout_alignBaseline="@+id/swSoundSwitch"
+                android:layout_alignBottom="@+id/swSoundSwitch"
+                android:layout_alignParentStart="true" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:theme="@style/SCBSwitch"
+                android:id="@+id/swSoundSwitch"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:background="@drawable/shape"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tắt rung"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textSize="18dp"
+                android:layout_alignBaseline="@+id/swVibrate"
+                android:layout_alignBottom="@+id/swVibrate"
+                android:layout_alignParentStart="true" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:theme="@style/SCBSwitch"
+                android:id="@+id/swVibrate"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/tvDelHistory"
+            android:text="Xóa lịch sử quét"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape"
+            />
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Giới thiệu"
+            android:id="@+id/tvAboutUs"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape"
+            />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

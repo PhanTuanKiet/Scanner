@@ -4,10 +4,18 @@ package com.datviet.model;
  * Created by Phong Phan on 18-Oct-17.
  */
 
-public class HistoryModel  {
+public class History {
 
-    private int id;
-    private String Code;
+    public int id;
+    public String Code;
+
+    public History() {
+
+    }
+
+    public History( String Code){
+        this.Code = Code;
+    }
 
     public int getId() {
         return id;

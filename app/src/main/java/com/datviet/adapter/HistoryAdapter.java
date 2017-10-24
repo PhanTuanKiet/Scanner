@@ -1,77 +1,64 @@
 package com.datviet.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.datviet.model.HistoryModel;
+import com.datviet.model.History;
 import com.datviet.scanner.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Phong Phan on 18-Oct-17.
  */
 
-public class HistoryAdapter extends BaseAdapter {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
 
-    private List<HistoryModel> objects = new ArrayList<HistoryModel>();
-    private Context context;
-    private LayoutInflater layoutInflater;
+    private List<History> historyList;
 
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView codeNumber;
 
-    public HistoryAdapter(Context context){
-        this.context = context;
-        this.layoutInflater = LayoutInflater.from(context);
-    }
-
-    public void setData(ArrayList<HistoryModel> data) {
-        if (data != null) this.objects = data;
-
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return objects.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return objects.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null){
-            convertView = layoutInflater.inflate(R.layout.history_item,null);
-            convertView.setTag(new ViewHolder(convertView));
+        public MyViewHolder(View view) {
+            super(view);
+            codeNumber = (TextView) view.findViewById(R.id.tvBarcodeNumber);
         }
-        initializeViews((HistoryModel) getItem(position),(ViewHolder) convertView.getTag(),position);
-        return convertView;
     }
 
-    public void initializeViews(final HistoryModel object, ViewHolder holder, final int position) {
+
+    public HistoryAdapter(List<History> historyList) {
+        this.historyList = historyList;
     }
 
-    protected class ViewHolder {
-        private TextView tvBarcodeNumber;
-        private ImageView ivBarcodeIcon;
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.history_item, parent, false);
 
-        public ViewHolder(View view) {
-            tvBarcodeNumber = (TextView) view.findViewById(R.id.tvBarcodeNumber);
-            ivBarcodeIcon = (ImageView) view.findViewById(R.id.ivBarcodeIcon);
-        }
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        History history = historyList.get(position);
+        holder.codeNumber.setText(history.getCode());
+    }
+
+    @Override
+    public int getItemCount() {
+        return historyList.size();
+    }
+
+    public void removeItem(int position) {
+        historyList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(History item, int position) {
+        historyList.add(position, item);
+        notifyItemInserted(position);
     }
 }
