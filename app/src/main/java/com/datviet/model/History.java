@@ -7,14 +7,16 @@ package com.datviet.model;
 public class History {
 
     public int id;
-    public String Code;
+    public String code;
+    public String datetime;
 
     public History() {
 
     }
 
-    public History( String Code){
-        this.Code = Code;
+    public History(String code,String datetime){
+        this.code = code;
+        this.datetime = datetime;
     }
 
     public int getId() {
@@ -26,10 +28,18 @@ public class History {
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        code = code;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String code) {
+        datetime = datetime;
     }
 }

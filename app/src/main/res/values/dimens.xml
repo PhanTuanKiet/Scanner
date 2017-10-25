@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="detail_row_height">40dp</dimen>
-    <dimen name="detail_text_size">15dp</dimen>
+    <dimen name="detail_row_height">60dp</dimen>
+    <dimen name="detail_row_text_size">15dp</dimen>
+    <dimen name="detail_text_size">13dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="logo_w_h">100dp</dimen>
 </resources>

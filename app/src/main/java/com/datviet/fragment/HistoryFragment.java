@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.datviet.adapter.HistoryAdapter;
@@ -32,6 +33,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     History history;
     ArrayList<History> arrayList;
     private static HistoryFragment fragment;
+    ImageView ivBook;
 
     private DatabaseReference mData;
 
@@ -46,10 +48,14 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.history_layout, container, false);
-        recyclerView = (RecyclerView) vg.findViewById(R.id.recycler_view);
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.history_layout, container, false);
+        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recycler_view);
 
-        //firebase();
+        mData = FirebaseDatabase.getInstance().getReference();
+        arrayList = new ArrayList<History>();
+        history = new History();
+
+        ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
 
         mAdapter = new HistoryAdapter(DataManager.sHistoryData);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -77,24 +83,18 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+
+
        prepareHistoryData();
-        return vg;
+
+        return viewGroup;
     }
-
-
-//    private void firebase(){
-//        mData = FirebaseDatabase.getInstance().getReference();
-//        arrayList = new ArrayList<History>();
-//        history = new History();
-//
-//    }
-
 
     private void prepareHistoryData() {
         if (DataManager.sHistoryData.size() == 0) {
-            DataManager.sHistoryData.add(new History( "11111981"));
-            DataManager.sHistoryData.add(new History( "33322456"));
-            DataManager.sHistoryData.add(new History( "77555221"));
+            DataManager.sHistoryData.add(new History( "11111981","22-10-2014,16:08"));
+            DataManager.sHistoryData.add(new History( "33322456","4-6-2015,18:01"));
+            DataManager.sHistoryData.add(new History( "77555221","1-11-2017,7:33"));
         }
         mAdapter.notifyDataSetChanged();
 }
@@ -102,7 +102,6 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
 //    private void loadFireBase(){
 //        prepareHistoryData();
 //        mData.child("history").push().setValue(DataManager.sHistoryData);
-//
 //    }
 //    private void realtimeFirebase(){
 //
@@ -130,7 +129,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
 //
 //            @Override
 //            public void onCancelled(DatabaseError databaseError) {
-//
+
 //            }
 //        });
 //    }

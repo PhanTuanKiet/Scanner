@@ -8,16 +8,40 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:id="@+id/ivBookImage"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/book_placeholder" />
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:background="@color/darkBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/ivBookImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitXY"
+                android:src="@drawable/book_placeholder" />
+
+            <TextView
+                android:id="@+id/tvTensach"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="3"
+                android:maxLines="3"
+                android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
+                android:textColor="@color/white"
+                android:textSize="@dimen/detail_text_size" />
+
+        </LinearLayout>
+
 
         <ScrollView
             android:layout_marginTop="20dp"
@@ -29,83 +53,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
-
-                    <TextView
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:text="Mã Sách "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
-
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
-                </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#ffffff" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:text="Tên Sách "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#ffffff" />
-
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -119,31 +70,30 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="Thể Loại "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_row_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
 
                     <TextView
+                        android:id="@+id/tvTheLoai"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
+                        android:text="ddd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
+
+
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#ffffff" />
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,70 +106,63 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="Tình Trạng  "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_row_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
-
                     <TextView
+                        android:id="@+id/tvTinhtrang"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
+                        android:text="ddd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#ffffff" />
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_row_height">
 
                     <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="Số Lượng "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_row_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/tvSoluong"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
+                        android:text="ddd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#ffffff" />
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -232,31 +175,29 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="Nhà Xuất Bản "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_row_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
+
 
                     <TextView
+                        android:id="@+id/tvNhaXuatBan"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
+                        android:text="ddd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#ffffff" />
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -269,72 +210,66 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="Năm Xuất Bản "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_row_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
+
 
                     <TextView
+                        android:id="@+id/tvNamXuatBan"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
+                        android:text="ddd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#ffffff" />
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_row_height">
 
                     <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="Tác giả "
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/detail_text_size"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_row_text_size"
                         android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff" />
 
                     <TextView
+                        android:id="@+id/ivTacgia"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp" />
+                        android:text="ddd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#ffffff" />
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/divider" />
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
-
-
     </RelativeLayout>
