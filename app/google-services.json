@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "142819006946",
+    "firebase_url": "https://historytest-92c4a.firebaseio.com",
+    "project_id": "historytest-92c4a",
+    "storage_bucket": "historytest-92c4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142819006946:android:1c5d07a1032fd1d2",
+        "android_client_info": {
+          "package_name": "com.datviet.scanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142819006946-rntat47f485h43q3ugkevnibj77trjtu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV_GHpTOYhkEJrr8HA4xFCQT4EPeL71HE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
