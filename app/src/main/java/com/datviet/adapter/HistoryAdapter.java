@@ -23,11 +23,18 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
 
     private List<History> historyList;
+    private final OnItemClickListener listener;
     Context context;
 
-    public HistoryAdapter(List<History> historyList) {
+    public HistoryAdapter(List<History> historyList,OnItemClickListener listener) {
         this.historyList = historyList;
+        this.listener = listener;
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int pos);
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView codeNumber;
@@ -38,16 +45,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             codeNumber = (TextView) view.findViewById(R.id.tvBarcodeNumber);
             tvHistoryDate = (TextView) view.findViewById(R.id.tvHistoryDate);
             tvHistoryTime = (TextView) view.findViewById(R.id.tvHistoryTime);
+        }
 
-            view.setOnClickListener(new View.OnClickListener() {
-                Fragment selectedFragment = null;
+        public void bind(final History history, final int pos, final OnItemClickListener listener) {
 
-                @Override
-                public void onClick(View v) {
-                    FragmentManager manager = ((MainActivity) context).getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.frame_content, selectedFragment);
-                    transaction.commit();
+            codeNumber.setText(history.getCode());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(pos);
                 }
             });
         }
@@ -64,6 +69,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         History history = historyList.get(position);
+        holder.bind(history,position,listener);
+
         holder.codeNumber.setText(history.getCode());
 
 
@@ -79,6 +86,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         holder.tvHistoryDate.setText(dateTime[0]);
         holder.tvHistoryTime.setText(dateTime[1]);
     }
+
 
     @Override
     public int getItemCount() {

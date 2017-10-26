@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.datviet.fragment.DetailFragment;
 import com.datviet.fragment.HistoryFragment;
 import com.datviet.fragment.SettingFragment;
+import com.datviet.model.History;
+import com.datviet.utils.Constant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,5 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void addFragmentDetail(History history){
+        Fragment detailFragment = DetailFragment.newInstance();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.DATA, history);
+        detailFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_content, detailFragment);
+        transaction.commit();
     }
 }

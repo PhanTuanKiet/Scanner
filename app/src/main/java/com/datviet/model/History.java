@@ -1,10 +1,12 @@
 package com.datviet.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Phong Phan on 18-Oct-17.
  */
 
-public class History {
+public class History implements Serializable {
 
     public int id;
     public String code;

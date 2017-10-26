@@ -1,6 +1,9 @@
 package com.datviet.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
+import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SpacingItemDecoration;
@@ -34,9 +39,13 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     ArrayList<History> arrayList;
     private static HistoryFragment fragment;
     ImageView ivBook;
+    private final HistoryAdapter.OnItemClickListener listener;
 
     private DatabaseReference mData;
 
+    public HistoryFragment() {
+        listener = null;
+    }
 
 
     public static HistoryFragment newInstance() {
@@ -57,7 +66,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
 
-        mAdapter = new HistoryAdapter(DataManager.sHistoryData);
+        mAdapter = new HistoryAdapter(DataManager.sHistoryData,listener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -83,12 +92,22 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
-
        prepareHistoryData();
+
+        recyclerView.setAdapter(new HistoryAdapter(DataManager.sHistoryData, new HistoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                Toast.makeText(getContext(),"Clicked "+pos,Toast.LENGTH_SHORT).show();
+                MainActivity mainActivity = (MainActivity)getActivity();
+                mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
+            }
+        }));
+
 
         return viewGroup;
     }
+
+
 
     private void prepareHistoryData() {
         if (DataManager.sHistoryData.size() == 0) {
