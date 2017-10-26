@@ -60,7 +60,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.history_layout, container, false);
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recycler_view);
 
-        mData = FirebaseDatabase.getInstance().getReference();
+        //mData = FirebaseDatabase.getInstance().getReference();
         arrayList = new ArrayList<History>();
         history = new History();
 

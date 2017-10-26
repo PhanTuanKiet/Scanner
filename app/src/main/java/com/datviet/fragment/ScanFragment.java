@@ -52,6 +52,14 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
             Toast.makeText(getContext(), "No Flash On Your Device", Toast.LENGTH_LONG).show();
         }
 
+        intentIntegrator = new IntentIntegrator(getActivity());
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        intentIntegrator.setPrompt("Scan a barcode");
+        intentIntegrator.setCameraId(0);  // Use a specific camera of the device
+        intentIntegrator.setBeepEnabled(true);
+        intentIntegrator.setBarcodeImageEnabled(true);
+        intentIntegrator.setOrientationLocked(false);
+
     }
 
     @Override
@@ -78,19 +86,11 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
 //        getCamera();
 
 //        MainActivity mainActivity = (MainActivity)getActivity();
-        intentIntegrator = new IntentIntegrator(getActivity());
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
-        intentIntegrator.setPrompt("Scan a barcode");
-        intentIntegrator.setCameraId(0);  // Use a specific camera of the device
-        intentIntegrator.setBeepEnabled(true);
-        intentIntegrator.setBarcodeImageEnabled(true);
-        intentIntegrator.setOrientationLocked(false);
 //        intentIntegrator.initiateScan();
 
 //        return inflater.inflate(R.layout.fragment_item_two, container, false);
         barcodeView.decodeContinuous(callback);
         return v;
-//        return inflater.inflate(R.layout.scan_layout, container, false);
     }
 
     @Override
@@ -119,11 +119,11 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
             if (result.getText() != null) {
                 barcodeView.setStatusText(result.getText());
 //                Toast.makeText(getContext(), result.getText(), Toast.LENGTH_LONG).show();
-                Intent it = new Intent(getActivity(), DetailFragment.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("code", result.getText());
-                it.putExtra("data", bundle);
-                startActivity(it);
+//                Intent it = new Intent(getActivity(), DetailFragment.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("code", result.getText());
+//                it.putExtra("data", bundle);
+//                startActivity(it);
             }
 
             //Do something with code result
