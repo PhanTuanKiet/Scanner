@@ -1,5 +1,6 @@
 package com.datviet.scanner;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.datviet.fragment.ScanFragment;
 import com.datviet.fragment.SettingFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
+import com.datviet.utils.DataManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,5 +80,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_content, detailFragment);
         transaction.commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DataManager.clear();
     }
 }

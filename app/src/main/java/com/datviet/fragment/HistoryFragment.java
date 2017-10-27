@@ -1,9 +1,8 @@
 package com.datviet.fragment;
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.datviet.adapter.HistoryAdapter;
@@ -22,11 +19,7 @@ import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SpacingItemDecoration;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -66,7 +59,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
 
-        mAdapter = new HistoryAdapter(DataManager.sHistoryData,listener);
+        mAdapter = new HistoryAdapter(DataManager.sHistoryData, listener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -84,21 +77,34 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.RIGHT) {
-                    mAdapter.notifyItemRemoved(position);
-                    DataManager.sHistoryData.remove(position);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Are you sure delete this entry?");
+
+                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mAdapter.removeItem(position);
+                            recyclerView.setAdapter(null);
+                            recyclerView.setAdapter(mAdapter);
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
                 }
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-       prepareHistoryData();
+        prepareHistoryData();
 
         recyclerView.setAdapter(new HistoryAdapter(DataManager.sHistoryData, new HistoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                Toast.makeText(getContext(),"Clicked "+pos,Toast.LENGTH_SHORT).show();
-                MainActivity mainActivity = (MainActivity)getActivity();
+                Toast.makeText(getContext(), "Clicked " + pos, Toast.LENGTH_SHORT).show();
+                MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
             }
         }));
@@ -108,15 +114,14 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     }
 
 
-
     private void prepareHistoryData() {
         if (DataManager.sHistoryData.size() == 0) {
-            DataManager.sHistoryData.add(new History( "11111981","22-10-2014,16:08"));
-            DataManager.sHistoryData.add(new History( "33322456","4-6-2015,18:01"));
-            DataManager.sHistoryData.add(new History( "77555221","1-11-2017,7:33"));
+            DataManager.sHistoryData.add(new History("11111981", "22-10-2014,16:08"));
+            DataManager.sHistoryData.add(new History("33322456", "4-6-2015,18:01"));
+            DataManager.sHistoryData.add(new History("77555221", "1-11-2017,7:33"));
         }
         mAdapter.notifyDataSetChanged();
-}
+    }
 
 //    private void loadFireBase(){
 //        prepareHistoryData();

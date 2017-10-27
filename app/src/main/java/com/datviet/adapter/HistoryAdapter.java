@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.datviet.model.History;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
+import com.datviet.utils.DataManager;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         this.historyList = historyList;
         this.listener = listener;
     }
+
 
     public interface OnItemClickListener {
         void onItemClick(int pos);
@@ -94,12 +96,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     }
 
     public void removeItem(int position) {
-        historyList.remove(position);
-        notifyItemRemoved(position);
+        if(historyList!=null){
+            historyList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, historyList.size());
+        }
+        notifyDataSetChanged();
     }
 
     public void restoreItem(History item, int position) {
-        historyList.add(position, item);
+        DataManager.sHistoryData.add(position, item);
         notifyItemInserted(position);
     }
 }
