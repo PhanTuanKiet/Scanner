@@ -77,19 +77,21 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.RIGHT) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage("Are you sure delete this entry?");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.AlertDialogStyle);
+                    builder.setMessage("Bạn có chắc chắn muốn xóa ?");
 
-                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }
-                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            recyclerView.setAdapter(null);
+                            recyclerView.setAdapter(mAdapter);
                         }
                     }).show();
                 }
