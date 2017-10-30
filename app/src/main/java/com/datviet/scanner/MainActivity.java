@@ -1,16 +1,13 @@
 package com.datviet.scanner;
 
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.datviet.fragment.DetailFragment;
@@ -21,7 +18,7 @@ import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TransferData{
 
     TextView tvBarTitle;
     Fragment selectedFragment;
@@ -86,5 +83,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         DataManager.clear();
+    }
+
+    @Override
+    public void onDataSelected(String data) {
+        Bundle bundle = new Bundle();
+        bundle.putString("data", "From Activity");
+        HistoryFragment historyFragment = new HistoryFragment();
+        historyFragment.setArguments(bundle);
     }
 }

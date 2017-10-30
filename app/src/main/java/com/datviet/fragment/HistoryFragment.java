@@ -2,15 +2,18 @@ package com.datviet.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datviet.adapter.HistoryAdapter;
@@ -32,6 +35,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     ArrayList<History> arrayList;
     private static HistoryFragment fragment;
     ImageView ivBook;
+    TextView tv;
     private final HistoryAdapter.OnItemClickListener listener;
 
     private DatabaseReference mData;
@@ -58,6 +62,10 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         history = new History();
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
+        tv = (TextView) viewGroup.findViewById(R.id.tv);
+
+        String data = getArguments().getString("data"); // đây là thứ bạn cần :D
+        tv.setText(data);
 
         mAdapter = new HistoryAdapter(DataManager.sHistoryData, listener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -100,7 +108,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        prepareHistoryData();
+        //prepareHistoryData();
 
         recyclerView.setAdapter(new HistoryAdapter(DataManager.sHistoryData, new HistoryAdapter.OnItemClickListener() {
             @Override
@@ -110,20 +118,27 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                 mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
             }
         }));
-
-
         return viewGroup;
     }
 
-
-    private void prepareHistoryData() {
-        if (DataManager.sHistoryData.size() == 0) {
-            DataManager.sHistoryData.add(new History("11111981", "22-10-2014,16:08"));
-            DataManager.sHistoryData.add(new History("33322456", "4-6-2015,18:01"));
-            DataManager.sHistoryData.add(new History("77555221", "1-11-2017,7:33"));
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String link = bundle.getString("url");
+            tv.setText(link);
         }
-        mAdapter.notifyDataSetChanged();
     }
+
+    //    private void prepareHistoryData() {
+//        if (DataManager.sHistoryData.size() == 0) {
+//            DataManager.sHistoryData.add(new History("11111981", "22-10-2014,16:08"));
+//            DataManager.sHistoryData.add(new History("33322456", "4-6-2015,18:01"));
+//            DataManager.sHistoryData.add(new History("77555221", "1-11-2017,7:33"));
+//        }
+//        mAdapter.notifyDataSetChanged();
+//    }
 
 //    private void loadFireBase(){
 //        prepareHistoryData();

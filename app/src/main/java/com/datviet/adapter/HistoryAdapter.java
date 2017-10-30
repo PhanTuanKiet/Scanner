@@ -1,9 +1,6 @@
 package com.datviet.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.datviet.model.History;
-import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 
@@ -76,9 +72,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         holder.codeNumber.setText(history.getCode());
 
 
-//        Calendar c = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//        sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+
         String strDateFormat = history.getDatetime();
 
         String strSplit = strDateFormat;
