@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 
 public class HistoryFragment extends android.support.v4.app.Fragment {
-
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
     History history;
@@ -64,8 +63,6 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
         tv = (TextView) viewGroup.findViewById(R.id.tv);
 
-        String data = getArguments().getString("data"); // đây là thứ bạn cần :D
-        tv.setText(data);
 
         mAdapter = new HistoryAdapter(DataManager.sHistoryData, listener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -128,6 +125,15 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         if (bundle != null) {
             String link = bundle.getString("url");
             tv.setText(link);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Bundle args = getArguments();
+        if (args != null) {
+            tv.setText(args.getString("bundle"));
         }
     }
 

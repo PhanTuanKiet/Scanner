@@ -53,17 +53,17 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        TransferData listener;
-        if (context instanceof TransferData){
-            listener = (TransferData ) context;
-            listener.onDataSelected("Android Co ban cho den nang cao");
-        } else {
-            throw new RuntimeException(context.toString() + " must implement onViewSelected");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        TransferData listener;
+//        if (context instanceof TransferData){
+//            listener = (TransferData ) context;
+//            listener.onDataSelected("Android Co ban cho den nang cao");
+//        } else {
+//            throw new RuntimeException(context.toString() + " must implement onViewSelected");
+//        }
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

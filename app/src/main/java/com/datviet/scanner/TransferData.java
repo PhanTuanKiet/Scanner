@@ -5,5 +5,5 @@ package com.datviet.scanner;
  */
 
 public interface TransferData {
-    void onDataSelected(String data);
+    void trasnferFragment(String Data);
 }

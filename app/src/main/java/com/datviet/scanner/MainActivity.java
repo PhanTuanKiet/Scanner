@@ -1,5 +1,6 @@
 package com.datviet.scanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.datviet.adapter.HistoryAdapter;
 import com.datviet.fragment.DetailFragment;
 import com.datviet.fragment.HistoryFragment;
 import com.datviet.fragment.ScanFragment;
@@ -18,10 +21,11 @@ import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
 
-public class MainActivity extends AppCompatActivity implements TransferData{
+public class MainActivity extends AppCompatActivity implements TransferData {
 
     TextView tvBarTitle;
     Fragment selectedFragment;
+    private final String LOG_TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +90,13 @@ public class MainActivity extends AppCompatActivity implements TransferData{
     }
 
     @Override
-    public void onDataSelected(String data) {
-        Bundle bundle = new Bundle();
-        bundle.putString("data", "From Activity");
-        HistoryFragment historyFragment = new HistoryFragment();
-        historyFragment.setArguments(bundle);
+    public void trasnferFragment(String Data) {
+        HistoryFragment hisFrag = new HistoryFragment().newInstance();
+        Bundle args = new Bundle();
+        args.putString("bundle", Data);
+        hisFrag .setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_content,hisFrag);
+        transaction.commit();
     }
 }
