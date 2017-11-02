@@ -3,7 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="barColor">#1c944f</color>
+    <color name="mainColor">#26A65B</color>
+    <color name="darkmainColor">#1d964f</color>
     <color name="background">#464D5C</color>
     <color name="darkBackground">#353C4B</color>
     <color name="white">#ffffff</color>

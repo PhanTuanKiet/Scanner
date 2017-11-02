@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemTextColor="@color/white"
-        app:itemBackground="@color/barColor"
+        app:itemBackground="@color/mainColor"
         app:itemIconTint="@drawable/selector"
         android:layout_gravity="bottom"
         app:menu="@menu/menu_navigation" />

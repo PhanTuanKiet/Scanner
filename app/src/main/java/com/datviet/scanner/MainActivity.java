@@ -86,15 +86,12 @@ public class MainActivity extends AppCompatActivity implements TransferData {
     @Override
     protected void onStart() {
         super.onStart();
-        DataManager.clear();
+//        DataManager.clear();
     }
 
     @Override
-    public void trasnferFragment(String Data) {
+    public void trasnferFragment() {
         HistoryFragment hisFrag = new HistoryFragment().newInstance();
-        Bundle args = new Bundle();
-        args.putString("bundle", Data);
-        hisFrag .setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_content,hisFrag);
         transaction.commit();

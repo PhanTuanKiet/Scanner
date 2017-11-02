@@ -2,9 +2,11 @@ package com.datviet.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.datviet.model.History;
 import com.datviet.scanner.R;
 import com.datviet.scanner.TransferData;
 import com.datviet.utils.DataManager;
+import com.google.gson.Gson;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -37,6 +40,7 @@ import java.util.TimeZone;
 
 public class ScanFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
+    private TransferData mCallback;
     CompoundBarcodeView barcodeView;
     ImageButton flash;
     boolean check = true;
@@ -53,29 +57,26 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         return fragment;
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        TransferData listener;
-//        if (context instanceof TransferData){
-//            listener = (TransferData ) context;
-//            listener.onDataSelected("Android Co ban cho den nang cao");
-//        } else {
-//            throw new RuntimeException(context.toString() + " must implement onViewSelected");
-//        }
-//    }
+
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        try
+        {
+            mCallback = (TransferData) context;
+        }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(context.toString()+ " must implement TransferData");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         arrayList = new ArrayList<>();
-
-
-        HistoryFragment mang = new HistoryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("url", "https://xuxu_minhanh");
-        mang.setArguments(bundle);
-
 
         check = getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
@@ -94,7 +95,6 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         if (arrayList.size()!=0) {
             for (int i = 0; i < arrayList.size(); i++) {
                 arrayList.get(i);
-                Log.d("code123456", arrayList.get(i).toString());
             }
         }
     }
@@ -134,7 +134,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode,resultCode,data);
         }
     }
 
@@ -143,19 +143,16 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         public void barcodeResult(BarcodeResult result) {
             if (result.getText() != null) {
                 barcodeView.setStatusText(result.getText());
-                Toast.makeText(getContext(), result.getText(), Toast.LENGTH_LONG).show();
-
-
                 Calendar c = Calendar.getInstance();
                 DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//                sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
                 Date date = new Date();
                 String test = sdf.format(date);
                 history = new History(result.getText().toString(),test);
-                arrayList.add(history);
+                DataManager.sHistoryData.add(history);
+                mCallback.trasnferFragment();
             }
 
-            //Do something with code result
         }
 
         @Override

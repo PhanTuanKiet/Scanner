@@ -8,25 +8,15 @@ import java.io.Serializable;
 
 public class History implements Serializable {
 
-    public int id;
     public String code;
     public String datetime;
 
     public History() {
-
     }
 
     public History(String code,String datetime){
         this.code = code;
         this.datetime = datetime;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCode() {

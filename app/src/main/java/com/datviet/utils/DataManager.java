@@ -12,9 +12,7 @@ import java.util.List;
 public class DataManager {
     public static List<History> sHistoryData = new ArrayList<>();
 
-
-
-    public static void clear(){
-        sHistoryData.clear();
-    }
+//    public static void clear(){
+//        sHistoryData.clear();
+//    }
 }

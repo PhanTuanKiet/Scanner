@@ -1,7 +1,9 @@
 package com.datviet.fragment;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,6 +25,7 @@ import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SpacingItemDecoration;
 import com.google.firebase.database.DatabaseReference;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -63,7 +66,6 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
         tv = (TextView) viewGroup.findViewById(R.id.tv);
 
-
         mAdapter = new HistoryAdapter(DataManager.sHistoryData, listener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -82,7 +84,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.RIGHT) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.AlertDialogStyle);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
                     builder.setMessage("Bạn có chắc chắn muốn xóa ?");
 
                     builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
@@ -105,7 +107,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        //prepareHistoryData();
+//        prepareHistoryData();
 
         recyclerView.setAdapter(new HistoryAdapter(DataManager.sHistoryData, new HistoryAdapter.OnItemClickListener() {
             @Override
@@ -115,34 +117,30 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                 mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
             }
         }));
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("GSON", "");
+        History[] history;
+        history = gson.fromJson(json, History[].class);
+        tv.setText(history[0].datetime);
+        Log.d("JSON",json);
+
         return viewGroup;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String link = bundle.getString("url");
-            tv.setText(link);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Bundle args = getArguments();
-        if (args != null) {
-            tv.setText(args.getString("bundle"));
-        }
-    }
-
-    //    private void prepareHistoryData() {
-//        if (DataManager.sHistoryData.size() == 0) {
-//            DataManager.sHistoryData.add(new History("11111981", "22-10-2014,16:08"));
-//            DataManager.sHistoryData.add(new History("33322456", "4-6-2015,18:01"));
-//            DataManager.sHistoryData.add(new History("77555221", "1-11-2017,7:33"));
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Bundle args = getArguments();
+//        if (args != null) {
+//            tv.setText(args.getString("bundle"));
 //        }
+//    }
+
+//    private void prepareHistoryData() {
+//            history = new History(history.code,history.datetime);
+//           DataManager.sHistoryData.get(Integer.parseInt(history.code));
+//            Log.d("test123",DataManager.sHistoryData.toString());
 //        mAdapter.notifyDataSetChanged();
 //    }
 
