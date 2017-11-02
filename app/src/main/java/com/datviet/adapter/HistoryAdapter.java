@@ -1,7 +1,10 @@
 package com.datviet.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,9 @@ import android.widget.TextView;
 import com.datviet.model.History;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -45,7 +51,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             tvHistoryTime = (TextView) view.findViewById(R.id.tvHistoryTime);
         }
 
-        public void bind(final History history, final int pos, final OnItemClickListener listener) {
+        public void bind(History history, final int pos, final OnItemClickListener listener) {
 
             codeNumber.setText(history.getCode());
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +76,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         holder.bind(history,position,listener);
 
         holder.codeNumber.setText(history.getCode());
-
 
 
         String strDateFormat = history.getDatetime();
@@ -99,7 +104,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     }
 
     public void restoreItem(History item, int position) {
-        DataManager.sHistoryData.add(position, item);
+        historyList.add(position, item);
         notifyItemInserted(position);
     }
 }

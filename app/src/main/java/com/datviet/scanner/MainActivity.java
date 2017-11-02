@@ -1,7 +1,9 @@
 package com.datviet.scanner;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,12 @@ import com.datviet.fragment.SettingFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TransferData {
 
@@ -86,7 +94,14 @@ public class MainActivity extends AppCompatActivity implements TransferData {
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("GSON", "");
+        Type listType = new TypeToken<ArrayList<History>>(){}.getType();
+        DataManager.sHistoryData = gson.fromJson(json, listType);
+        Log.d("JSON",json);
 //        DataManager.clear();
+
     }
 
     @Override

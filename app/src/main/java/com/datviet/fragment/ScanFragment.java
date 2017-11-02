@@ -150,6 +150,14 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 String test = sdf.format(date);
                 history = new History(result.getText().toString(),test);
                 DataManager.sHistoryData.add(history);
+
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(DataManager.sHistoryData);
+                editor.putString("GSON", json);
+                editor.commit();
+
                 mCallback.trasnferFragment();
             }
 

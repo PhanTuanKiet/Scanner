@@ -91,6 +91,12 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
+                            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            SharedPreferences.Editor editor = sharedPrefs.edit();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(DataManager.sHistoryData);
+                            editor.putString("GSON", json);
+                            editor.commit();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }
@@ -117,14 +123,6 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                 mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
             }
         }));
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-        String json = sharedPrefs.getString("GSON", "");
-        History[] history;
-        history = gson.fromJson(json, History[].class);
-        tv.setText(history[0].datetime);
-        Log.d("JSON",json);
 
         return viewGroup;
     }
