@@ -36,7 +36,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="3"
                 android:maxLines="3"
-                android:text="qqqasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdddddddd"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaas"
                 android:textColor="@color/white"
                 android:textSize="@dimen/detail_text_size" />
 

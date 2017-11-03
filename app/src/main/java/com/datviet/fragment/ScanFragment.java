@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.datviet.model.History;
+import com.datviet.scanner.Common;
+import com.datviet.scanner.CoreApplication;
 import com.datviet.scanner.R;
-import com.datviet.scanner.TransferData;
 import com.datviet.utils.DataManager;
 import com.google.gson.Gson;
 import com.google.zxing.ResultPoint;
@@ -40,13 +42,13 @@ import java.util.TimeZone;
 
 public class ScanFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
-    private TransferData mCallback;
+    private Transfer mCallback;
     CompoundBarcodeView barcodeView;
     ImageButton flash;
     boolean check = true;
     boolean id_flash = true;
     IntentIntegrator intentIntegrator;
-    ArrayList<History> arrayList ;
+    ArrayList<History> arrayList;
 
     History history;
     Camera camera;
@@ -57,19 +59,17 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         return fragment;
     }
 
-
+    public interface Transfer{
+        void trasnferFragment();
+    }
 
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         super.onAttach(context);
-        try
-        {
-            mCallback = (TransferData) context;
-        }
-        catch (ClassCastException e)
-        {
-            throw new ClassCastException(context.toString()+ " must implement TransferData");
+        try {
+            mCallback = (Transfer) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement TransferData");
         }
     }
 
@@ -92,7 +92,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         intentIntegrator.setBarcodeImageEnabled(true);
         intentIntegrator.setOrientationLocked(false);
 
-        if (arrayList.size()!=0) {
+        if (arrayList.size() != 0) {
             for (int i = 0; i < arrayList.size(); i++) {
                 arrayList.get(i);
             }
@@ -106,7 +106,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         View v;
         v = inflater.inflate(R.layout.scan_layout, container, false);
         barcodeView = (CompoundBarcodeView) v.findViewById(R.id.barcode_scanner);
-        flash = (ImageButton)v.findViewById(R.id.flash);
+        flash = (ImageButton) v.findViewById(R.id.flash);
 
         flash.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +134,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
-            super.onActivityResult(requestCode,resultCode,data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -148,19 +148,15 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
                 Date date = new Date();
                 String test = sdf.format(date);
+                if(DataManager.sHistoryData == null){
+                    DataManager.sHistoryData = new ArrayList<>();
+                }
                 history = new History(result.getText().toString(),test);
                 DataManager.sHistoryData.add(history);
-
-                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                Gson gson = new Gson();
-                String json = gson.toJson(DataManager.sHistoryData);
-                editor.putString("GSON", json);
-                editor.commit();
+                Common.saveData();
 
                 mCallback.trasnferFragment();
             }
-
         }
 
         @Override

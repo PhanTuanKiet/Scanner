@@ -1,20 +1,22 @@
 package com.datviet.scanner;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.datviet.adapter.HistoryAdapter;
 import com.datviet.fragment.DetailFragment;
 import com.datviet.fragment.HistoryFragment;
 import com.datviet.fragment.ScanFragment;
@@ -22,18 +24,18 @@ import com.datviet.fragment.SettingFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements TransferData {
+public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer {
 
+    private static final String CAMERA ="android.permission.CAMERA" ;
     TextView tvBarTitle;
     Fragment selectedFragment;
-    private final String LOG_TAG = "MainActivity";
+    public static final int CAMERA_SERVICE_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements TransferData {
 
     }
 
-    public void addFragmentDetail(History history){
+    public void addFragmentDetail(History history) {
         Fragment detailFragment = DetailFragment.newInstance();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.DATA, history);
@@ -94,21 +96,60 @@ public class MainActivity extends AppCompatActivity implements TransferData {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String json = sharedPrefs.getString("GSON", "");
-        Type listType = new TypeToken<ArrayList<History>>(){}.getType();
-        DataManager.sHistoryData = gson.fromJson(json, listType);
-        Log.d("JSON",json);
-//        DataManager.clear();
+        if(checkCameraPermission()){
 
+        }
+        else {
+            requestCameraPermission();
+        }
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String json = sharedPrefs.getString("GSON", "");
+
+        if (TextUtils.isEmpty(json)){
+            DataManager.sHistoryData = new ArrayList<>();
+        }else{
+            Type listType = new TypeToken<List<History>>() {}.getType();
+            List<History> arr = DataManager.gson.fromJson(json, listType);
+            if (arr != null)
+                DataManager.sHistoryData = arr;
+            else{
+                DataManager.sHistoryData = new ArrayList<>();
+            }
+        }
+//        DataManager.clear();
     }
 
     @Override
     public void trasnferFragment() {
         HistoryFragment hisFrag = new HistoryFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_content,hisFrag);
+        transaction.replace(R.id.frame_content, hisFrag);
         transaction.commit();
     }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(MainActivity.this,new String[]{CAMERA},1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    boolean SendSMSPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                } else {
+                    Toast.makeText(MainActivity.this, "Permission denied access your camera", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+
+    public boolean checkCameraPermission() {
+        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),CAMERA);
+        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED;
+    }
+
+
 }

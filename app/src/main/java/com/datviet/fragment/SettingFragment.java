@@ -16,14 +16,13 @@ import android.widget.Toast;
 import com.datviet.model.History;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
-import com.datviet.scanner.TransferData;
 import com.datviet.utils.DataManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 public class SettingFragment extends Fragment {
-    TextView tvDelHistory;
+    TextView tvDelHistory,tvAboutUS;
     DataManager data;
     ArrayList<History> arrayList;
     History history;
@@ -55,23 +54,12 @@ public class SettingFragment extends Fragment {
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.setting_layout, container, false);
         tvDelHistory = (TextView) viewGroup.findViewById(R.id.tvDelHistory);
+        tvAboutUS = (TextView) viewGroup.findViewById(R.id.tvAboutUs);
         tvDelHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DataManager.sHistoryData.clear();
                 Toast.makeText(getContext(),"Đã xóa lịch sử",Toast.LENGTH_LONG).show();
-
-                arrayList = new ArrayList<>();
-                String str = tvDelHistory.getText().toString();
-                history = new History(str,"2-11-2017");
-                arrayList.add(history);
-                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                Gson gson = new Gson();
-                String json = gson.toJson(arrayList);
-                editor.putString("GSON", json);
-                editor.commit();
-                Log.d("GSON",json);
             }
         });
 

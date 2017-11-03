@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,14 +19,17 @@ import android.widget.Toast;
 
 import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
+import com.datviet.scanner.Common;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SpacingItemDecoration;
 import com.google.firebase.database.DatabaseReference;
-import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class HistoryFragment extends android.support.v4.app.Fragment {
@@ -91,12 +93,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
-                            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                            SharedPreferences.Editor editor = sharedPrefs.edit();
-                            Gson gson = new Gson();
-                            String json = gson.toJson(DataManager.sHistoryData);
-                            editor.putString("GSON", json);
-                            editor.commit();
+                            Common.saveData();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }
@@ -126,14 +123,10 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
 
         return viewGroup;
     }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        Bundle args = getArguments();
-//        if (args != null) {
-//            tv.setText(args.getString("bundle"));
-//        }
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
 //    private void prepareHistoryData() {
 //            history = new History(history.code,history.datetime);
