@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
 
     public void addFragmentDetail(History history) {
         Fragment detailFragment = DetailFragment.newInstance();
+        String str = history.getCode().toString();
+        tvBarTitle.setText(str);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.DATA, history);
         detailFragment.setArguments(bundle);
@@ -133,16 +135,13 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-
+        if (requestCode == 1) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     boolean SendSMSPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 } else {
                     Toast.makeText(MainActivity.this, "Permission denied access your camera", Toast.LENGTH_SHORT).show();
                 }
                 return;
-            }
         }
     }
 

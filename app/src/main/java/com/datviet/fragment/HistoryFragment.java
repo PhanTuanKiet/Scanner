@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HistoryFragment extends android.support.v4.app.Fragment {
+public class HistoryFragment extends android.support.v4.app.Fragment implements HistoryAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
     History history;
@@ -40,12 +40,10 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     private static HistoryFragment fragment;
     ImageView ivBook;
     TextView tv;
-    private final HistoryAdapter.OnItemClickListener listener;
 
     private DatabaseReference mData;
 
     public HistoryFragment() {
-        listener = null;
     }
 
 
@@ -68,7 +66,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
         tv = (TextView) viewGroup.findViewById(R.id.tv);
 
-        mAdapter = new HistoryAdapter(DataManager.sHistoryData, listener);
+        mAdapter = new HistoryAdapter(DataManager.sHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -110,16 +108,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-//        prepareHistoryData();
-
-        recyclerView.setAdapter(new HistoryAdapter(DataManager.sHistoryData, new HistoryAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int pos) {
-                Toast.makeText(getContext(), "Clicked " + pos, Toast.LENGTH_SHORT).show();
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
-            }
-        }));
+        //prepareHistoryData();
 
         return viewGroup;
     }
@@ -128,12 +117,19 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
         super.onStart();
     }
 
-//    private void prepareHistoryData() {
-//            history = new History(history.code,history.datetime);
-//           DataManager.sHistoryData.get(Integer.parseInt(history.code));
-//            Log.d("test123",DataManager.sHistoryData.toString());
-//        mAdapter.notifyDataSetChanged();
-//    }
+    private void prepareHistoryData() {
+           DataManager.sHistoryData.add(new History("111222","22-11-2017,6:77"));
+           DataManager.sHistoryData.add(new History("114443222","22-11-2017,6:77"));
+           DataManager.sHistoryData.add(new History("11142222","22-11-2017,6:77"));
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(int pos) {
+        Toast.makeText(getContext(), "Clicked " + pos, Toast.LENGTH_SHORT).show();
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
+    }
 
 //    private void loadFireBase(){
 //        prepareHistoryData();

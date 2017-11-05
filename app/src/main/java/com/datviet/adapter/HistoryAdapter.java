@@ -52,10 +52,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         }
 
         public void bind(History history, final int pos, final OnItemClickListener listener) {
-
+            String strDateFormat = history.getDatetime();
+            String strSplit = strDateFormat;
+            String newSplit = strSplit;
+            String[] dateTime = newSplit.split("[,]");
+            tvHistoryDate.setText(dateTime[0]);
+            tvHistoryTime.setText(dateTime[1]);
             codeNumber.setText(history.getCode());
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
+                    if (listener != null)
                     listener.onItemClick(pos);
                 }
             });
@@ -74,18 +81,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         History history = historyList.get(position);
         holder.bind(history,position,listener);
-
-        holder.codeNumber.setText(history.getCode());
-
-
-        String strDateFormat = history.getDatetime();
-
-        String strSplit = strDateFormat;
-        String newSplit = strSplit;
-        String[] dateTime = newSplit.split("[,]");
-
-        holder.tvHistoryDate.setText(dateTime[0]);
-        holder.tvHistoryTime.setText(dateTime[1]);
     }
 
 
