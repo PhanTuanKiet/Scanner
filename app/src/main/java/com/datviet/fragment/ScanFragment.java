@@ -16,11 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.datviet.model.History;
-import com.datviet.scanner.Common;
-import com.datviet.scanner.CoreApplication;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
-import com.google.gson.Gson;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -153,8 +150,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 }
                 history = new History(result.getText().toString(),test);
                 DataManager.sHistoryData.add(history);
-                Common.saveData();
-
+                DataManager.saveHistory();
                 mCallback.trasnferFragment();
             }
         }

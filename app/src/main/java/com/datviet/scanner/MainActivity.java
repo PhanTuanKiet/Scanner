@@ -24,13 +24,14 @@ import com.datviet.fragment.SettingFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
+import com.datviet.utils.SharedPreferenceUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer {
+public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer,SettingFragment.ChangingFragment {
 
     private static final String CAMERA ="android.permission.CAMERA" ;
     TextView tvBarTitle;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
                         switch (item.getItemId()) {
                             case R.id.action_one:
                                 tvBarTitle.setText("Lịch Sử");
-                                selectedFragment = HistoryFragment.newInstance();
+                                selectedFragment = DetailFragment.newInstance();
                                 break;
                             case R.id.action_two:
                                 tvBarTitle.setText("Scan");
@@ -99,26 +100,12 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
     protected void onStart() {
         super.onStart();
         if(checkCameraPermission()){
-
         }
         else {
             requestCameraPermission();
         }
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String json = sharedPrefs.getString("GSON", "");
 
-        if (TextUtils.isEmpty(json)){
-            DataManager.sHistoryData = new ArrayList<>();
-        }else{
-            Type listType = new TypeToken<List<History>>() {}.getType();
-            List<History> arr = DataManager.gson.fromJson(json, listType);
-            if (arr != null)
-                DataManager.sHistoryData = arr;
-            else{
-                DataManager.sHistoryData = new ArrayList<>();
-            }
-        }
-//        DataManager.clear();
+        DataManager.loadHistoryData();
     }
 
     @Override
@@ -151,4 +138,9 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
     }
 
 
+    @Override
+    public void changingSetting() {
+        DetailFragment detail = new DetailFragment();
+        detail.changeImage();
+    }
 }

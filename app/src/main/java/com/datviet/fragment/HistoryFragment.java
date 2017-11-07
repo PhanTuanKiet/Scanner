@@ -1,9 +1,7 @@
 package com.datviet.fragment;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,17 +17,13 @@ import android.widget.Toast;
 
 import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
-import com.datviet.scanner.Common;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SpacingItemDecoration;
 import com.google.firebase.database.DatabaseReference;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HistoryFragment extends android.support.v4.app.Fragment implements HistoryAdapter.OnItemClickListener {
@@ -91,7 +85,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment implements 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
-                            Common.saveData();
+                            DataManager.saveHistory();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }
@@ -126,7 +120,6 @@ public class HistoryFragment extends android.support.v4.app.Fragment implements 
 
     @Override
     public void onItemClick(int pos) {
-        Toast.makeText(getContext(), "Clicked " + pos, Toast.LENGTH_SHORT).show();
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
     }
