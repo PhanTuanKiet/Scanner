@@ -2,22 +2,22 @@ package com.datviet.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.datviet.model.History;
 import com.datviet.scanner.R;
+import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
+import com.datviet.utils.SharedPreferenceUtil;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -50,14 +50,17 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
     History history;
     Camera camera;
     Camera.Parameters parameters;
+    ToggleButton tgbScanMode;
 
     public static ScanFragment newInstance() {
         ScanFragment fragment = new ScanFragment();
         return fragment;
     }
 
-    public interface Transfer{
-        void trasnferFragment();
+    public interface Transfer {
+        void trasnferBookFragment();
+
+        void trasnferStudentFragment();
     }
 
     @Override
@@ -103,7 +106,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         View v;
         v = inflater.inflate(R.layout.scan_layout, container, false);
         barcodeView = (CompoundBarcodeView) v.findViewById(R.id.barcode_scanner);
-
+        tgbScanMode = (ToggleButton) v.findViewById(R.id.tgbScanMode);
 //        flash.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -114,7 +117,18 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
 //                    Off_Flash();
 //                }
 //            }
-//        });
+//        })
+
+        tgbScanMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE,true);
+                }else {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE,false);
+                }
+            }
+        });
 
         barcodeView.decodeContinuous(callback);
         return v;
@@ -144,13 +158,17 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
                 Date date = new Date();
                 String test = sdf.format(date);
-                if(DataManager.sHistoryData == null){
+                if (DataManager.sHistoryData == null) {
                     DataManager.sHistoryData = new ArrayList<>();
                 }
-                history = new History(result.getText().toString(),test);
+                history = new History(result.getText().toString(), test);
                 DataManager.sHistoryData.add(history);
                 DataManager.saveHistory();
-                mCallback.trasnferFragment();
+                if (tgbScanMode.isChecked())
+                    mCallback.trasnferStudentFragment();
+                else {
+                    mCallback.trasnferBookFragment();
+                }
             }
         }
 
@@ -183,6 +201,17 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
             camera.setParameters(parameters);
             camera.startPreview();
             id_flash = true;
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Boolean isTurnOnImage = SharedPreferenceUtil.getInstance().getBoolean(Constant.SCAN_MODE);
+        if (isTurnOnImage == true)
+            tgbScanMode.setChecked(true);
+        else {
+            tgbScanMode.setChecked(false);
         }
     }
 

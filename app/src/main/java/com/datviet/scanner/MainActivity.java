@@ -19,13 +19,14 @@ import com.datviet.fragment.DetailFragment;
 import com.datviet.fragment.MainHistoryFragment;
 import com.datviet.fragment.ScanFragment;
 import com.datviet.fragment.SettingFragment;
+import com.datviet.fragment.StudentDetailFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
 
 public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer {
 
-    private static final String CAMERA ="android.permission.CAMERA" ;
+    private static final String CAMERA = "android.permission.CAMERA";
     TextView tvBarTitle;
     Fragment selectedFragment;
     Toolbar toolbar;
@@ -60,19 +61,15 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
                                 selectedFragment = SettingFragment.newInstance();
                                 break;
                         }
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frame_content, selectedFragment);
-                        transaction.commit();
+                        fragmentTransaction(selectedFragment);
                         return true;
                     }
                 });
 
         if (savedInstanceState == null) {
             tvBarTitle.setText("Scan");
-            ScanFragment scan = new ScanFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.frame_content, scan);
-            fragmentTransaction.commit();
+            ScanFragment scanFrag = new ScanFragment();
+            fragmentTransaction(scanFrag);
 
         }
 
@@ -85,17 +82,14 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.DATA, history);
         detailFragment.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_content, detailFragment);
-        transaction.commit();
+        fragmentTransaction(detailFragment);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(checkCameraPermission()){
-        }
-        else {
+        if (checkCameraPermission()) {
+        } else {
             requestCameraPermission();
         }
 
@@ -103,32 +97,41 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
     }
 
     @Override
-    public void trasnferFragment() {
-        MainHistoryFragment hisFrag = new MainHistoryFragment().newInstance();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_content, hisFrag);
-        transaction.commit();
+    public void trasnferBookFragment() {
+        MainHistoryFragment historyFrag = new MainHistoryFragment().newInstance();
+        fragmentTransaction(historyFrag);
     }
 
     private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(MainActivity.this,new String[]{CAMERA},1);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{CAMERA}, 1);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == 1) {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    boolean SendSMSPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                } else {
-                    Toast.makeText(MainActivity.this, "Permission denied access your camera", Toast.LENGTH_SHORT).show();
-                }
-                return;
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                boolean SendSMSPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            } else {
+                Toast.makeText(MainActivity.this, "Permission denied access your camera", Toast.LENGTH_SHORT).show();
+            }
+            return;
         }
     }
 
     public boolean checkCameraPermission() {
-        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),CAMERA);
+        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED;
     }
 
+    @Override
+    public void trasnferStudentFragment() {
+        StudentDetailFragment studentDetailFrag = new StudentDetailFragment().newInstance();
+        fragmentTransaction(studentDetailFrag);
+    }
+
+    public void fragmentTransaction(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_content, fragment);
+        transaction.commit();
+    }
 }

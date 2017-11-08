@@ -8,4 +8,5 @@ public class Constant {
     public static final String LOADING_IMAGE = "LOADING_IMAGE";
     public static final String SOUND = "SOUND";
     public static final String VIBRATE = "VIBRATE";
+    public static final String SCAN_MODE = "SCAN_MODE";
 }
