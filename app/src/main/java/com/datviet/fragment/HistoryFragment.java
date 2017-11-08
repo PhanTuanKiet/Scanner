@@ -7,20 +7,18 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
-import com.datviet.utils.SpacingItemDecoration;
+import com.datviet.scanner.SpacingItemDecoration;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;

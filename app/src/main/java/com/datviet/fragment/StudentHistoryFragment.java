@@ -19,7 +19,7 @@ import com.datviet.model.History;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
-import com.datviet.utils.SpacingItemDecoration;
+import com.datviet.scanner.SpacingItemDecoration;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
