@@ -107,18 +107,6 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         v = inflater.inflate(R.layout.scan_layout, container, false);
         barcodeView = (CompoundBarcodeView) v.findViewById(R.id.barcode_scanner);
         tgbScanMode = (ToggleButton) v.findViewById(R.id.tgbScanMode);
-//        flash.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (id_flash == true) {
-//                    On_Flash();
-//                } else {
-//                    Off_Flash();
-//                }
-//            }
-//        })
-
         tgbScanMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
