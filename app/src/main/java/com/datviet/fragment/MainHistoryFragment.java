@@ -1,4 +1,4 @@
-package com.datviet.scanner;
+package com.datviet.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,8 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.datviet.fragment.DetailFragment;
-import com.datviet.fragment.HistoryFragment;
+import com.datviet.scanner.R;
 
 import java.util.ArrayList;
 import java.util.List;

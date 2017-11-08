@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datviet.fragment.DetailFragment;
+import com.datviet.fragment.MainHistoryFragment;
 import com.datviet.fragment.ScanFragment;
 import com.datviet.fragment.SettingFragment;
-import com.datviet.fragment.StudentDetailFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
