@@ -1,9 +1,7 @@
 package com.datviet.scanner;
 
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -11,31 +9,26 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datviet.fragment.DetailFragment;
-import com.datviet.fragment.HistoryFragment;
 import com.datviet.fragment.ScanFragment;
 import com.datviet.fragment.SettingFragment;
+import com.datviet.fragment.StudentDetailFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
-import com.datviet.utils.SharedPreferenceUtil;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer,SettingFragment.ChangingFragment {
+public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer {
 
     private static final String CAMERA ="android.permission.CAMERA" ;
     TextView tvBarTitle;
     Fragment selectedFragment;
+    Toolbar toolbar;
     public static final int CAMERA_SERVICE_CODE = 1;
 
     @Override
@@ -44,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
         setContentView(R.layout.activity_main);
 
         tvBarTitle = (TextView) findViewById(R.id.tvBarTitle);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
 
         navigation.setOnNavigationItemSelectedListener
@@ -53,15 +48,14 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
                         selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.action_one:
-                                tvBarTitle.setText("Lịch Sử");
-                                selectedFragment = DetailFragment.newInstance();
+                                toolbar.setVisibility(View.GONE);
+                                selectedFragment = MainHistoryFragment.newInstance();
                                 break;
                             case R.id.action_two:
                                 tvBarTitle.setText("Scan");
                                 selectedFragment = ScanFragment.newInstance();
                                 break;
                             case R.id.action_three:
-
                                 tvBarTitle.setText("Cài Đặt");
                                 selectedFragment = SettingFragment.newInstance();
                                 break;
@@ -110,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
 
     @Override
     public void trasnferFragment() {
-        HistoryFragment hisFrag = new HistoryFragment().newInstance();
+        MainHistoryFragment hisFrag = new MainHistoryFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_content, hisFrag);
         transaction.commit();
@@ -137,10 +131,4 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED;
     }
 
-
-    @Override
-    public void changingSetting() {
-        DetailFragment detail = new DetailFragment();
-        detail.changeImage();
-    }
 }

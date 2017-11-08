@@ -103,19 +103,18 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         View v;
         v = inflater.inflate(R.layout.scan_layout, container, false);
         barcodeView = (CompoundBarcodeView) v.findViewById(R.id.barcode_scanner);
-        flash = (ImageButton) v.findViewById(R.id.flash);
 
-        flash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (id_flash == true) {
-                    On_Flash();
-                } else {
-                    Off_Flash();
-                }
-            }
-        });
+//        flash.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (id_flash == true) {
+//                    On_Flash();
+//                } else {
+//                    Off_Flash();
+//                }
+//            }
+//        });
 
         barcodeView.decodeContinuous(callback);
         return v;

@@ -61,7 +61,7 @@ public class DetailFragment extends android.support.v4.app.Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Boolean isChecked = SharedPreferenceUtil.getInstance().getBoolean(Constant.CHANGING_SETTING);
+        Boolean isChecked = SharedPreferenceUtil.getInstance().getBoolean(Constant.LOADING_IMAGE);
         if (isChecked == true)
            changeImage();
         else {

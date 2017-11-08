@@ -13,14 +13,16 @@
 
     </com.journeyapps.barcodescanner.CompoundBarcodeView>
 
-    <ImageButton
-        android:id="@+id/flash"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    
+    <ToggleButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textOff="@null"
+        android:textOn="@null"
+        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true" />
+        android:background="@drawable/toggle"
+
+        />
 
 </RelativeLayout>

@@ -1,9 +1,11 @@
 package com.datviet.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,24 +31,9 @@ public class SettingFragment extends Fragment {
     DataManager data;
     ArrayList<History> arrayList;
     History history;
-    Switch swImage,swSound;
-    private ChangingFragment mCallback;
+    Switch swImage,swSound,swVibrate;
 
     private static SettingFragment fragment;
-
-    public interface ChangingFragment{
-        void changingSetting();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mCallback = (ChangingFragment) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement TransferData");
-        }
-    }
 
     public static SettingFragment newInstance() {
         if (fragment == null) fragment = new SettingFragment();
@@ -62,11 +49,26 @@ public class SettingFragment extends Fragment {
         tvAboutUS = (TextView) viewGroup.findViewById(R.id.tvAboutUs);
         swImage = (Switch) viewGroup.findViewById(R.id.swImageSwitch);
         swSound = (Switch) viewGroup.findViewById(R.id.swSoundSwitch);
+        swVibrate = (Switch) viewGroup.findViewById(R.id.swVibrate);
         tvDelHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataManager.sHistoryData.clear();
-                Toast.makeText(getContext(),"Đã xóa lịch sử",Toast.LENGTH_LONG).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
+                builder.setMessage("Bạn có chắc chắn muốn xóa toàn bộ lịch sử ?");
+                builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DataManager.sHistoryData.clear();
+                        DataManager.saveHistory();
+                        Toast.makeText(getContext(),"Đã xóa toàn bộ lịch sử",Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
             }
         });
 
@@ -92,6 +94,17 @@ public class SettingFragment extends Fragment {
             }
         });
 
+        swVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE,true);
+                }else {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE,false);
+                }
+            }
+        });
+
         return viewGroup;
     }
 
@@ -105,11 +118,18 @@ public class SettingFragment extends Fragment {
             swImage.setChecked(false);
         }
 
-        Boolean isTurnOnSound = SharedPreferenceUtil.getInstance().getBoolean(Constant.LOADING_IMAGE);
+        Boolean isTurnOnSound = SharedPreferenceUtil.getInstance().getBoolean(Constant.SOUND);
         if (isTurnOnSound == true)
             swSound.setChecked(true);
         else {
             swSound.setChecked(false);
+        }
+
+        Boolean isTurnOnVibrate = SharedPreferenceUtil.getInstance().getBoolean(Constant.VIBRATE);
+        if (isTurnOnVibrate == true)
+            swVibrate.setChecked(true);
+        else {
+            swVibrate.setChecked(false);
         }
     }
 }
