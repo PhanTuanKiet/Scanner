@@ -2,7 +2,6 @@ package com.datviet.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
@@ -30,7 +28,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
     private History history;
-    private ArrayList<History> arrayList;
+    private ArrayList<History> ArrayList;
     private static StudentHistoryFragment mFragment;
     private ImageView ivBook;
 
@@ -53,7 +51,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recycler_view);
 
         //mData = FirebaseDatabase.getInstance().getReference();
-        arrayList = new ArrayList<History>();
+        ArrayList = new ArrayList<History>();
         history = new History();
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
@@ -83,7 +81,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
-                            DataManager.saveStudent();
+                            DataManager.saveStudentHistory();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }

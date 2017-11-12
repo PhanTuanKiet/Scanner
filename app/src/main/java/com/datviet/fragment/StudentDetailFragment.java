@@ -58,7 +58,7 @@ public class StudentDetailFragment extends BaseFragment implements RequestListen
         tvBeginDate = (TextView) viewGroup.findViewById(R.id.tvBeginDate);
         tvExpireDate = (TextView) viewGroup.findViewById(R.id.tvExpireDate);
 
-        API.getMemberInfo("TV3", this);
+        API.getMemberInfo("TV1", this);
         return viewGroup;
     }
 

@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
@@ -28,7 +27,7 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
     private History history;
-    private ArrayList<History> arrayList;
+    private ArrayList<History> ArrayList;
     private static BookHistoryFragment mFragment;
     private ImageView ivBook;
 
@@ -51,7 +50,7 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recycler_view);
 
         //mData = FirebaseDatabase.getInstance().getReference();
-        arrayList = new ArrayList<History>();
+        ArrayList = new ArrayList<History>();
         history = new History();
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
@@ -81,7 +80,7 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
-                            DataManager.saveHistory();
+                            DataManager.saveBookHistory();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }

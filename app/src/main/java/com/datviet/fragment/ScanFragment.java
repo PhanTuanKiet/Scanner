@@ -2,14 +2,12 @@ package com.datviet.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -138,14 +136,14 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
                     }
                     history = new History(result.getText().toString(), convertdate);
                     DataManager.sStudentHistoryData.add(history);
-                    DataManager.saveStudent();
+                    DataManager.saveStudentHistory();
                 } else {
                     if (DataManager.sBookHistoryData == null) {
                         DataManager.sBookHistoryData = new ArrayList<>();
                     }
                     history = new History(result.getText().toString(), convertdate);
                     DataManager.sBookHistoryData.add(history);
-                    DataManager.saveHistory();
+                    DataManager.saveBookHistory();
                 }
                 mCallback.trasnferMainHistoryFragment();
             }

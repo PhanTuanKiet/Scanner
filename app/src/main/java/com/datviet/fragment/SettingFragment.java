@@ -2,7 +2,6 @@ package com.datviet.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +47,7 @@ public class SettingFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 
-                if ((DataManager.sBookHistoryData  == null) && (DataManager.sBookHistoryData  == null) )
+                if ((DataManager.sBookHistoryData.size() == 0) && (DataManager.sStudentHistoryData.size() == 0) )
                     Toast.makeText(getContext(), "Chưa có lịch sử quét", Toast.LENGTH_LONG).show();
                 else {
                     AlertDialogView();
@@ -86,6 +85,21 @@ public class SettingFragment extends BaseFragment {
                 else {
                     SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE, false);
                 }
+            }
+        });
+
+        tvAboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
+                builder.setTitle("Giới Thiệu");
+                builder.setMessage("Công ty Đất Việt \n \n"  + "Lầu 7 (Tòa nhà CĐ Viễn Đông), Lô 2, Đường 16, Công viên phần mềm Quang Trung, P. Tân Chánh Hiệp, Q.12, TP.HCM\n");
+                builder.setPositiveButton("ẨN", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
             }
         });
 
@@ -132,13 +146,13 @@ public class SettingFragment extends BaseFragment {
             public void onClick(DialogInterface dialog, int id) {
                 if (items[index] == "Sách") {
                     DataManager.sBookHistoryData.clear();
-                    DataManager.saveHistory();
+                    DataManager.saveBookHistory();
                     Toast.makeText(getContext(),"Đã xóa toàn bộ lịch sử mã sách",Toast.LENGTH_LONG).show();
                 }
 
                 if (items[index] == "Sinh Viên"){
                     DataManager.sStudentHistoryData.clear();
-                    DataManager.saveStudent();
+                    DataManager.saveStudentHistory();
                     Toast.makeText(getContext(),"Đã xóa toàn bộ lịch sử mã sinh viên",Toast.LENGTH_LONG).show();
                 }
 

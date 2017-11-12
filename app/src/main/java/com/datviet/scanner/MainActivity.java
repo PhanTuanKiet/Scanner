@@ -2,7 +2,6 @@ package com.datviet.scanner;
 
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,9 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +23,6 @@ import com.datviet.fragment.StudentDetailFragment;
 import com.datviet.model.History;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements ScanFragment.Transfer {
 
@@ -70,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
                                 break;
                             case R.id.action_three:
                                 tvBarTitle.setText("Cài Đặt");
-                                selectedFragment = StudentDetailFragment.newInstance();
+                                selectedFragment = SettingFragment.newInstance();
                                 break;
                         }
                         fragmentTransaction(selectedFragment);
@@ -113,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements ScanFragment.Tran
                 requestCameraPermission();
             }
 
-            DataManager.loadHistoryData();
-            DataManager.loadStudentData();
+            DataManager.loadBookHistoryData();
+            DataManager.loadStudentHistoryData();
         }
 
         @Override
