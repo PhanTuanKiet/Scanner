@@ -13,21 +13,19 @@ import com.datviet.scanner.R;
 import com.datviet.utils.Constant;
 import com.datviet.utils.SharedPreferenceUtil;
 
-/**
- * Created by Phong Phan on 21-Oct-17.
- */
 
-public class DetailFragment extends android.support.v4.app.Fragment {
 
-    private static DetailFragment fragment;
+public class BookDetailFragment extends BaseFragment {
 
-    ImageView ivBookImage;
-    TextView tvTheLoai,tvTensach;
-    LinearLayout lnrDetailHeader;
+    private static BookDetailFragment mFragment;
 
-    public static DetailFragment newInstance() {
-        if (fragment == null) fragment = new DetailFragment();
-        return fragment;
+    private ImageView ivBookImage;
+    private TextView tvBookGenre,tvBookName;
+    private LinearLayout lnrDetailHeader;
+
+    public static BookDetailFragment newInstance() {
+        if (mFragment == null) mFragment = new BookDetailFragment();
+        return mFragment;
     }
 
     @Override
@@ -43,10 +41,10 @@ public class DetailFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.detail_layout, container, false);
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.book_detail_layout, container, false);
         ivBookImage = (ImageView) viewGroup.findViewById(R.id.ivBookImage);
-        tvTheLoai = (TextView) viewGroup.findViewById(R.id.tvTheLoai);
-        tvTensach = (TextView) viewGroup.findViewById(R.id.tvTensach);
+        tvBookGenre = (TextView) viewGroup.findViewById(R.id.tvBookGenre);
+        tvBookName = (TextView) viewGroup.findViewById(R.id.tvBookName);
         lnrDetailHeader = (LinearLayout) viewGroup.findViewById(R.id.lnrDetailHeader);
 
         return viewGroup;
@@ -55,7 +53,7 @@ public class DetailFragment extends android.support.v4.app.Fragment {
     public void changeImage() {
         ivBookImage.setVisibility(View.GONE);
         lnrDetailHeader.setMinimumHeight(140);
-        tvTensach.setGravity(Gravity.CENTER);
+        tvBookName.setGravity(Gravity.CENTER);
     }
 
     @Override
@@ -65,7 +63,6 @@ public class DetailFragment extends android.support.v4.app.Fragment {
         if (isChecked == true)
            changeImage();
         else {
-
         }
     }
 }

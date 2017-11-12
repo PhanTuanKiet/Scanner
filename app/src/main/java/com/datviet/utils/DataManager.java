@@ -10,33 +10,49 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Phong Phan on 22-Oct-17.
- */
 
 public class DataManager {
-    public static List<History> sHistoryData = new ArrayList<>();
+    public static List<History> sBookHistoryData = new ArrayList<>();
+    public static List<History> sStudentHistoryData = new ArrayList<>();
 
     public static Gson sGson = new Gson();
 
 //    public static void clear(){
-//        sHistoryData.clear();
+//        sBookHistoryData.clear();
 //    }
 
 
     public static void saveHistory() {
-        if (sHistoryData != null) {
-            String json = sGson.toJson(sHistoryData);
-            SharedPreferenceUtil.getInstance().saveString(Constant.HISTORY_DATA, json);
+        if (sBookHistoryData != null) {
+            String json = sGson.toJson(sBookHistoryData);
+            SharedPreferenceUtil.getInstance().saveString(Constant.BOOK_HISTORY_DATA, json);
         }
     }
 
     public static void loadHistoryData() {
-        String json = SharedPreferenceUtil.getInstance().getString(Constant.HISTORY_DATA);
+        String json = SharedPreferenceUtil.getInstance().getString(Constant.BOOK_HISTORY_DATA);
         if (!TextUtils.isEmpty(json)) {
             Type listType = new TypeToken<List<History>>() {}.getType();
-            sHistoryData = sGson.fromJson(json, listType);
+            sBookHistoryData = sGson.fromJson(json, listType);
         }
-        if (sHistoryData == null) sHistoryData = new ArrayList<>();
+        if (sBookHistoryData == null) sBookHistoryData = new ArrayList<>();
     }
+
+    public static void saveStudent() {
+        if (sStudentHistoryData != null) {
+            String json = sGson.toJson(sStudentHistoryData);
+            SharedPreferenceUtil.getInstance().saveString(Constant.STUDENT_HISTORY_DATA, json);
+        }
+    }
+
+    public static void loadStudentData() {
+        String json = SharedPreferenceUtil.getInstance().getString(Constant.STUDENT_HISTORY_DATA);
+        if (!TextUtils.isEmpty(json)) {
+            Type listType = new TypeToken<List<History>>() {}.getType();
+            sStudentHistoryData = sGson.fromJson(json, listType);
+        }
+        if (sStudentHistoryData == null) sStudentHistoryData = new ArrayList<>();
+    }
+
+
 }

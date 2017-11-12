@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 
 import com.datviet.scanner.CoreApplication;
 
-/**
- * Created by Phong Phan on 07-Nov-17.
- */
 
 public class SharedPreferenceUtil {
 

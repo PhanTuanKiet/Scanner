@@ -6,6 +6,7 @@
     >
 
     <ScrollView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -37,14 +38,14 @@
 
 
                 <TextView
-                    android:id="@+id/tvMaSV"
+                    android:id="@+id/tvStudentID"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
                     android:maxLines="2"
-                    android:text="ddd"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
 
@@ -72,14 +73,14 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvHoTen"
+                    android:id="@+id/tvStudentName"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
                     android:maxLines="2"
-                    android:text="ddd"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
             </LinearLayout>
@@ -107,14 +108,14 @@
 
 
                 <TextView
-                    android:id="@+id/tvSoDT"
+                    android:id="@+id/tvPhone"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
                     android:maxLines="2"
-                    android:text="ddd"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
 
@@ -130,6 +131,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_margin="5dp"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -143,13 +145,13 @@
 
 
                 <TextView
-                    android:id="@+id/tvDanhSachMuon"
+                    android:id="@+id/tvBorrowBookList"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
-                    android:text="fsss"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
             </LinearLayout>
@@ -164,6 +166,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_margin="5dp"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -176,13 +179,13 @@
 
 
                 <TextView
-                    android:id="@+id/tvTenSachMuon"
+                    android:id="@+id/tvBorrowBookName"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
-                    android:text="sfff"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
             </LinearLayout>
@@ -210,14 +213,14 @@
 
 
                 <TextView
-                    android:id="@+id/tvNgayMuon"
+                    android:id="@+id/tvBeginDate"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
                     android:maxLines="2"
-                    android:text="ddd"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
             </LinearLayout>
@@ -245,14 +248,14 @@
 
 
                 <TextView
-                    android:id="@+id/tvHanTra"
+                    android:id="@+id/tvExpireDate"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
                     android:maxLines="2"
-                    android:text="ddd"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
             </LinearLayout>

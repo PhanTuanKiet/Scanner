@@ -21,16 +21,6 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="40dp"
-            android:text="không có dữ liệu"
-            android:textAlignment="center"
-            android:textColor="#FFF"
-            android:layout_centerVertical="true"/>
 
 
 </RelativeLayout>

@@ -13,13 +13,13 @@
         android:layout_alignParentStart="true">
 
         <TextView
-            android:id="@+id/tvMasach"
+            android:id="@+id/tvBookID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:maxLines="1"
-            android:text="aaa"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="28dp" />
 
@@ -41,14 +41,14 @@
                 android:src="@drawable/book_placeholder" />
 
             <TextView
-                android:id="@+id/tvTensach"
+                android:id="@+id/tvBookName"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="3"
                 android:maxLines="3"
-                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaas"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="@dimen/detail_text_size" />
 
@@ -88,14 +88,14 @@
 
 
                     <TextView
-                        android:id="@+id/tvTheLoai"
+                        android:id="@+id/tvBookGenre"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="ddd"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
 
@@ -123,14 +123,14 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvTinhtrang"
+                        android:id="@+id/tvBookStatus"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="ddd"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
@@ -158,14 +158,14 @@
 
 
                     <TextView
-                        android:id="@+id/tvSoluong"
+                        android:id="@+id/tvBookQuantity"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="ddd"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
 
@@ -194,14 +194,14 @@
 
 
                     <TextView
-                        android:id="@+id/tvNhaXuatBan"
+                        android:id="@+id/tvPublisher"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="ddd"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
@@ -229,14 +229,14 @@
 
 
                     <TextView
-                        android:id="@+id/tvNamXuatBan"
+                        android:id="@+id/tvPublishYear"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="ddd"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
@@ -264,14 +264,14 @@
 
 
                     <TextView
-                        android:id="@+id/ivTacgia"
+                        android:id="@+id/tvBookAuthor"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:maxLines="2"
-                        android:text="ddd"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>

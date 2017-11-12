@@ -11,24 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.datviet.scanner.R;
+import com.datviet.utils.Constant;
+import com.datviet.utils.SharedPreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Phong Phan on 08-Nov-17.
- */
 
-public class MainHistoryFragment extends Fragment {
 
-    private static MainHistoryFragment fragment;
+public class MainHistoryFragment extends BaseFragment {
+
+    private static MainHistoryFragment mFragment;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
 
     public static MainHistoryFragment newInstance() {
-        if (fragment == null) fragment = new MainHistoryFragment();
-        return fragment;
+        if (mFragment == null) mFragment = new MainHistoryFragment();
+        return mFragment;
     }
 
     @Override
@@ -51,13 +51,27 @@ public class MainHistoryFragment extends Fragment {
         tabLayout = (TabLayout) viewGroup.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        viewPager.setCurrentItem(0);
+
         return viewGroup;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Boolean isChecked = SharedPreferenceUtil.getInstance().getBoolean(Constant.SCAN_MODE);
+        if (isChecked == true)
+            viewPager.setCurrentItem(1);
+        else {
+            viewPager.setCurrentItem(0);
+        }
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new HistoryFragment(), "SÁCH");
-        adapter.addFragment(new DetailFragment(), "SINH VIÊN");
+        adapter.addFragment(new BookHistoryFragment(), "SÁCH");
+        adapter.addFragment(new StudentHistoryFragment(), "SINH VIÊN");
         viewPager.setAdapter(adapter);
     }
 
@@ -89,5 +103,6 @@ public class MainHistoryFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
 
 }

@@ -24,24 +24,23 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 
 
-public class HistoryFragment extends android.support.v4.app.Fragment implements HistoryAdapter.OnItemClickListener {
+public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
-    History history;
-    ArrayList<History> arrayList;
-    private static HistoryFragment fragment;
-    ImageView ivBook;
-    TextView tv;
+    private History history;
+    private ArrayList<History> arrayList;
+    private static BookHistoryFragment mFragment;
+    private ImageView ivBook;
 
     private DatabaseReference mData;
 
-    public HistoryFragment() {
+    public BookHistoryFragment() {
     }
 
 
-    public static HistoryFragment newInstance() {
-        if (fragment == null) fragment = new HistoryFragment();
-        return fragment;
+    public static BookHistoryFragment newInstance() {
+        if (mFragment == null) mFragment = new BookHistoryFragment();
+        return mFragment;
     }
 
     @Override
@@ -56,9 +55,8 @@ public class HistoryFragment extends android.support.v4.app.Fragment implements 
         history = new History();
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
-        tv = (TextView) viewGroup.findViewById(R.id.tv);
 
-        mAdapter = new HistoryAdapter(DataManager.sHistoryData, this);
+        mAdapter = new HistoryAdapter(DataManager.sBookHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -110,21 +108,21 @@ public class HistoryFragment extends android.support.v4.app.Fragment implements 
     }
 
     private void prepareHistoryData() {
-           DataManager.sHistoryData.add(new History("111222","22-11-2017,6:77"));
-           DataManager.sHistoryData.add(new History("114443222","22-11-2017,6:77"));
-           DataManager.sHistoryData.add(new History("11142222","22-11-2017,6:77"));
+           DataManager.sBookHistoryData.add(new History("111222","22-11-2017,6:77"));
+           DataManager.sBookHistoryData.add(new History("114443222","22-11-2017,6:77"));
+           DataManager.sBookHistoryData.add(new History("11142222","22-11-2017,6:77"));
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(int pos) {
         MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
+        mainActivity.transferBookDetailFragment(DataManager.sBookHistoryData.get(pos));
     }
 
 //    private void loadFireBase(){
 //        prepareHistoryData();
-//        mData.child("history").push().setValue(DataManager.sHistoryData);
+//        mData.child("history").push().setValue(DataManager.sBookHistoryData);
 //    }
 //    private void realtimeFirebase(){
 //
@@ -156,9 +154,4 @@ public class HistoryFragment extends android.support.v4.app.Fragment implements 
 //            }
 //        });
 //    }
-
-//    private void createData(){
-//        arrayList.add(new History(history.Code));
-//        mAdapter.notifyDataSetChanged();
-//   }
 }

@@ -33,24 +33,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-/**
- * Created by Phong Phan on 19-Oct-17.
- */
 
-public class ScanFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class ScanFragment extends BaseFragment implements View.OnClickListener {
 
     private Transfer mCallback;
-    CompoundBarcodeView barcodeView;
-    ImageButton flash;
-    boolean check = true;
-    boolean id_flash = true;
-    IntentIntegrator intentIntegrator;
-    ArrayList<History> arrayList;
+    private CompoundBarcodeView barcodeView;
+    private IntentIntegrator intentIntegrator;
+    private ArrayList<History> arrayList;
 
-    History history;
-    Camera camera;
-    Camera.Parameters parameters;
-    ToggleButton tgbScanMode;
+    private History history;
+    private Camera camera;
+    private Camera.Parameters parameters;
+    private ToggleButton tgbScanMode;
 
     public static ScanFragment newInstance() {
         ScanFragment fragment = new ScanFragment();
@@ -58,9 +52,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
     }
 
     public interface Transfer {
-        void trasnferBookFragment();
-
-        void trasnferStudentFragment();
+        void trasnferMainHistoryFragment();
     }
 
     @Override
@@ -77,12 +69,6 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         arrayList = new ArrayList<>();
-
-        check = getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-
-        if (check == false) {
-            Toast.makeText(getContext(), "No Flash On Your Device", Toast.LENGTH_LONG).show();
-        }
 
         intentIntegrator = new IntentIntegrator(getActivity());
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
@@ -110,10 +96,10 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         tgbScanMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE,true);
-                }else {
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE,false);
+                if (isChecked) {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE, true);
+                } else {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE, false);
                 }
             }
         });
@@ -145,18 +131,23 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
                 DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
                 Date date = new Date();
-                String test = sdf.format(date);
-                if (DataManager.sHistoryData == null) {
-                    DataManager.sHistoryData = new ArrayList<>();
+                String convertdate = sdf.format(date);
+                if (tgbScanMode.isChecked()) {
+                    if (DataManager.sStudentHistoryData == null) {
+                        DataManager.sStudentHistoryData = new ArrayList<>();
+                    }
+                    history = new History(result.getText().toString(), convertdate);
+                    DataManager.sStudentHistoryData.add(history);
+                    DataManager.saveStudent();
+                } else {
+                    if (DataManager.sBookHistoryData == null) {
+                        DataManager.sBookHistoryData = new ArrayList<>();
+                    }
+                    history = new History(result.getText().toString(), convertdate);
+                    DataManager.sBookHistoryData.add(history);
+                    DataManager.saveHistory();
                 }
-                history = new History(result.getText().toString(), test);
-                DataManager.sHistoryData.add(history);
-                DataManager.saveHistory();
-                if (tgbScanMode.isChecked())
-                    mCallback.trasnferStudentFragment();
-                else {
-                    mCallback.trasnferBookFragment();
-                }
+                mCallback.trasnferMainHistoryFragment();
             }
         }
 
@@ -165,32 +156,7 @@ public class ScanFragment extends android.support.v4.app.Fragment implements Vie
         }
     };
 
-//    private void getCamera() {
-//        if (camera != null && parameters != null) {
-//            camera = Camera.open();
-//            parameters = camera.getParameters();
-//        }
-//    }
 
-    private void On_Flash() {
-        if (id_flash == true) {
-            parameters = camera.getParameters();
-            parameters.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_TORCH);
-            camera.setParameters(parameters);
-            camera.startPreview();
-            id_flash = false;
-        }
-    }
-
-    private void Off_Flash() {
-        if (id_flash == false) {
-            parameters = camera.getParameters();
-            parameters.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF);
-            camera.setParameters(parameters);
-            camera.startPreview();
-            id_flash = true;
-        }
-    }
 
     @Override
     public void onStart() {

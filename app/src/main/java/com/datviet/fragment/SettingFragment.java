@@ -1,12 +1,9 @@
 package com.datviet.fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,30 +11,27 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.SwitchCompat;
 
 import com.datviet.model.History;
-import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SharedPreferenceUtil;
 
-
 import java.util.ArrayList;
 
-public class SettingFragment extends Fragment {
-    TextView tvDelHistory,tvAboutUS;
-    DataManager data;
-    ArrayList<History> arrayList;
-    History history;
-    Switch swImage,swSound,swVibrate;
+public class SettingFragment extends BaseFragment {
+    private TextView tvDelHistory, tvAboutUs;
+    private ArrayList<History> arrayList;
+    private History history;
+    private Switch swImage, swSound, swVibrate;
+    private int index;
 
-    private static SettingFragment fragment;
+    private static SettingFragment mFragment;
 
     public static SettingFragment newInstance() {
-        if (fragment == null) fragment = new SettingFragment();
-        return fragment;
+        if (mFragment == null) mFragment = new SettingFragment();
+        return mFragment;
     }
 
     @Override
@@ -46,7 +40,7 @@ public class SettingFragment extends Fragment {
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.setting_layout, container, false);
         tvDelHistory = (TextView) viewGroup.findViewById(R.id.tvDelHistory);
-        tvAboutUS = (TextView) viewGroup.findViewById(R.id.tvAboutUs);
+        tvAboutUs = (TextView) viewGroup.findViewById(R.id.tvAboutUs);
         swImage = (Switch) viewGroup.findViewById(R.id.swImageSwitch);
         swSound = (Switch) viewGroup.findViewById(R.id.swSoundSwitch);
         swVibrate = (Switch) viewGroup.findViewById(R.id.swVibrate);
@@ -54,31 +48,21 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
-                builder.setMessage("Bạn có chắc chắn muốn xóa toàn bộ lịch sử ?");
-                builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DataManager.sHistoryData.clear();
-                        DataManager.saveHistory();
-                        Toast.makeText(getContext(),"Đã xóa toàn bộ lịch sử",Toast.LENGTH_LONG).show();
-                    }
-                }).setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }).show();
+                if ((DataManager.sBookHistoryData  == null) && (DataManager.sBookHistoryData  == null) )
+                    Toast.makeText(getContext(), "Chưa có lịch sử quét", Toast.LENGTH_LONG).show();
+                else {
+                    AlertDialogView();
+                }
             }
         });
 
         swImage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.LOADING_IMAGE,true);
-                }else {
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.LOADING_IMAGE,false);
+                if (isChecked)
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.LOADING_IMAGE, true);
+                else {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.LOADING_IMAGE, false);
                 }
             }
         });
@@ -86,10 +70,10 @@ public class SettingFragment extends Fragment {
         swSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SOUND,true);
-                }else {
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SOUND,false);
+                if (isChecked)
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SOUND, true);
+                else {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.SOUND, false);
                 }
             }
         });
@@ -97,10 +81,10 @@ public class SettingFragment extends Fragment {
         swVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE,true);
-                }else {
-                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE,false);
+                if (isChecked)
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE, true);
+                else {
+                    SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE, false);
                 }
             }
         });
@@ -131,5 +115,42 @@ public class SettingFragment extends Fragment {
         else {
             swVibrate.setChecked(false);
         }
+    }
+
+    private void AlertDialogView() {
+        final CharSequence[] items = {"Sách", "Sinh Viên"};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
+        builder.setTitle("Bạn có chắc chắn muốn xóa");
+        builder.setSingleChoiceItems(items, 0,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        index = item;
+                    }
+                });
+
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (items[index] == "Sách") {
+                    DataManager.sBookHistoryData.clear();
+                    DataManager.saveHistory();
+                    Toast.makeText(getContext(),"Đã xóa toàn bộ lịch sử mã sách",Toast.LENGTH_LONG).show();
+                }
+
+                if (items[index] == "Sinh Viên"){
+                    DataManager.sStudentHistoryData.clear();
+                    DataManager.saveStudent();
+                    Toast.makeText(getContext(),"Đã xóa toàn bộ lịch sử mã sinh viên",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

@@ -24,19 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-/**
- * Created by Phong Phan on 08-Nov-17.
- */
 
-public class StudentHistoryFragment extends Fragment implements HistoryAdapter.OnItemClickListener {
+public class StudentHistoryFragment extends BaseFragment implements HistoryAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
-    History history;
-    ArrayList<History> arrayList;
-    private static StudentHistoryFragment fragment;
-    ImageView ivBook;
-    TextView tv;
+    private History history;
+    private ArrayList<History> arrayList;
+    private static StudentHistoryFragment mFragment;
+    private ImageView ivBook;
 
     private DatabaseReference mData;
 
@@ -45,8 +41,8 @@ public class StudentHistoryFragment extends Fragment implements HistoryAdapter.O
 
 
     public static StudentHistoryFragment newInstance() {
-        if (fragment == null) fragment = new StudentHistoryFragment();
-        return fragment;
+        if (mFragment == null) mFragment = new StudentHistoryFragment();
+        return mFragment;
     }
 
     @Override
@@ -61,9 +57,8 @@ public class StudentHistoryFragment extends Fragment implements HistoryAdapter.O
         history = new History();
 
         ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
-        tv = (TextView) viewGroup.findViewById(R.id.tv);
 
-        mAdapter = new HistoryAdapter(DataManager.sHistoryData, this);
+        mAdapter = new HistoryAdapter(DataManager.sStudentHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -88,7 +83,7 @@ public class StudentHistoryFragment extends Fragment implements HistoryAdapter.O
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAdapter.removeItem(position);
-                            DataManager.saveHistory();
+                            DataManager.saveStudent();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                         }
@@ -109,22 +104,18 @@ public class StudentHistoryFragment extends Fragment implements HistoryAdapter.O
 
         return viewGroup;
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
 
     private void prepareHistoryData() {
-        DataManager.sHistoryData.add(new History("111222","22-11-2017,6:77"));
-        DataManager.sHistoryData.add(new History("114443222","22-11-2017,6:77"));
-        DataManager.sHistoryData.add(new History("11142222","22-11-2017,6:77"));
+        DataManager.sBookHistoryData.add(new History("111222","22-11-2017,6:77"));
+        DataManager.sBookHistoryData.add(new History("114443222","22-11-2017,6:77"));
+        DataManager.sBookHistoryData.add(new History("11142222","22-11-2017,6:77"));
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(int pos) {
         MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.addFragmentDetail(DataManager.sHistoryData.get(pos));
+        mainActivity.transferStudentDetailFragment(DataManager.sStudentHistoryData.get(pos));
     }
 
 }
