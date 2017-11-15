@@ -24,7 +24,7 @@ public class BaseFragment extends android.support.v4.app.Fragment {
         if (pDialog != null) pDialog.show();
     }
 
-    protected void hiddeLoadingDialog() {
+    protected void hiddenLoadingDialog() {
         if (pDialog != null) pDialog.cancel();
     }
 }

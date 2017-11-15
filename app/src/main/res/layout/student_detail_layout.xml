@@ -25,17 +25,51 @@
                 android:layout_height="@dimen/detail_row_height">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="Mã SV "
+                    android:text="Mã Thẻ \nThư Viện "
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_row_text_size"
                     android:textStyle="bold" />
 
+
+                <TextView
+                    android:id="@+id/tvMemberCode"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="3"
+                    android:maxLines="2"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/detail_text_size" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/detail_row_height">
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="Mã Sinh Viên "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/detail_row_text_size"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvStudentID"
@@ -48,8 +82,6 @@
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
-
-
             </LinearLayout>
 
             <View
@@ -128,6 +160,41 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/detail_row_height">
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="Email "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/detail_row_text_size"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="3"
+                    android:maxLines="2"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/detail_text_size" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -150,6 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="3"
                     android:text=""
                     android:textColor="@color/white"
@@ -184,6 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="3"
                     android:text=""
                     android:textColor="@color/white"
@@ -197,16 +266,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:layout_margin="5dp"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="Ngày mượn "
+                    android:text="Ngày mượn sách "
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_row_text_size"
                     android:textStyle="bold" />
@@ -218,8 +287,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="3"
-                    android:maxLines="2"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
@@ -232,16 +301,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:layout_margin="5dp"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="Hạn trả "
+                    android:text="Ngày trả sách "
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_row_text_size"
                     android:textStyle="bold" />
@@ -253,8 +322,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="3"
-                    android:maxLines="2"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />

@@ -16,8 +16,8 @@ import com.datviet.adapter.HistoryAdapter;
 import com.datviet.model.History;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
-import com.datviet.utils.DataManager;
 import com.datviet.scanner.SpacingItemDecoration;
+import com.datviet.utils.DataManager;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
     private History history;
     private ArrayList<History> ArrayList;
     private static StudentHistoryFragment mFragment;
-    private ImageView ivBook;
+    private ImageView ivPersonBG;
 
     private DatabaseReference mData;
 
@@ -54,7 +54,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
         ArrayList = new ArrayList<History>();
         history = new History();
 
-        ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
+        ivPersonBG = (ImageView) viewGroup.findViewById(R.id.ivPersonIconBG);
 
         mAdapter = new HistoryAdapter(DataManager.sStudentHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -84,6 +84,8 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
                             DataManager.saveStudentHistory();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
+                            if (mAdapter.getItemCount() == 0)
+                                ivPersonBG.setVisibility(View.VISIBLE);
                         }
                     }).setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
                         @Override
@@ -103,10 +105,17 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
         return viewGroup;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mAdapter.getItemCount() == 0)
+            ivPersonBG.setVisibility(View.VISIBLE);
+    }
+
     private void prepareHistoryData() {
-        DataManager.sBookHistoryData.add(new History("111222","22-11-2017,6:77"));
-        DataManager.sBookHistoryData.add(new History("114443222","22-11-2017,6:77"));
-        DataManager.sBookHistoryData.add(new History("11142222","22-11-2017,6:77"));
+        DataManager.sBookHistoryData.add(new History("111222", "22-11-2017,6:77"));
+        DataManager.sBookHistoryData.add(new History("114443222", "22-11-2017,6:77"));
+        DataManager.sBookHistoryData.add(new History("11142222", "22-11-2017,6:77"));
         mAdapter.notifyDataSetChanged();
     }
 

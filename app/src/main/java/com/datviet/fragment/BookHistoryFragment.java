@@ -29,7 +29,7 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
     private History history;
     private ArrayList<History> ArrayList;
     private static BookHistoryFragment mFragment;
-    private ImageView ivBook;
+    private ImageView ivBookBG;
 
     private DatabaseReference mData;
 
@@ -53,7 +53,7 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
         ArrayList = new ArrayList<History>();
         history = new History();
 
-        ivBook = (ImageView) viewGroup.findViewById(R.id.ivBookIcon);
+        ivBookBG = (ImageView) viewGroup.findViewById(R.id.ivBookIconBG);
 
         mAdapter = new HistoryAdapter(DataManager.sBookHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -83,6 +83,8 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
                             DataManager.saveBookHistory();
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
+                            if (mAdapter.getItemCount()==0)
+                                ivBookBG.setVisibility(View.VISIBLE);
                         }
                     }).setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
                         @Override
@@ -104,6 +106,8 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
     @Override
     public void onStart() {
         super.onStart();
+        if (mAdapter.getItemCount()==0)
+            ivBookBG.setVisibility(View.VISIBLE);
     }
 
     private void prepareHistoryData() {
@@ -118,39 +122,4 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.transferBookDetailFragment(DataManager.sBookHistoryData.get(pos));
     }
-
-//    private void loadFireBase(){
-//        prepareHistoryData();
-//        mData.child("history").push().setValue(DataManager.sBookHistoryData);
-//    }
-//    private void realtimeFirebase(){
-//
-//        mData.child("history").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                history = dataSnapshot.getValue(History.class);
-//                createData();
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-
-//            }
-//        });
-//    }
 }

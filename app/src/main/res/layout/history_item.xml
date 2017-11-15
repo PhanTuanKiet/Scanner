@@ -32,6 +32,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp"
             android:text="AAAAAAAAAAAAA"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="17dp" />
 

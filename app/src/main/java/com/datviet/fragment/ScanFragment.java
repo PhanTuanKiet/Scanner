@@ -2,7 +2,6 @@ package com.datviet.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,10 @@ import android.widget.ToggleButton;
 
 import com.datviet.model.History;
 import com.datviet.scanner.R;
+import com.datviet.utils.AppLog;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
+import com.datviet.utils.DateUtil;
 import com.datviet.utils.SharedPreferenceUtil;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -23,34 +24,22 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CompoundBarcodeView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 
-public class ScanFragment extends BaseFragment implements View.OnClickListener {
+public class ScanFragment extends BaseFragment implements View.OnClickListener, BarcodeCallback {
 
-    private Transfer mCallback;
+    public Transfer mCallback;
+    private static ScanFragment mFragment;
     private CompoundBarcodeView barcodeView;
     private IntentIntegrator intentIntegrator;
-    private ArrayList<History> arrayList;
 
-    private History history;
-    private Camera camera;
-    private Camera.Parameters parameters;
     private ToggleButton tgbScanMode;
 
     public static ScanFragment newInstance() {
-        ScanFragment fragment = new ScanFragment();
-        return fragment;
-    }
-
-    public interface Transfer {
-        void trasnferMainHistoryFragment();
+        if (mFragment == null) mFragment = new ScanFragment();
+        return mFragment;
     }
 
     @Override
@@ -59,28 +48,22 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
         try {
             mCallback = (Transfer) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement TransferData");
+            throw new ClassCastException(context.toString() + " must implement Transfer interface");
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        arrayList = new ArrayList<>();
 
         intentIntegrator = new IntentIntegrator(getActivity());
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
         intentIntegrator.setPrompt("Scan a barcode");
         intentIntegrator.setCameraId(0);  // Use a specific camera of the device
-        intentIntegrator.setBeepEnabled(true);
+        intentIntegrator.setBeepEnabled(false);
         intentIntegrator.setBarcodeImageEnabled(true);
         intentIntegrator.setOrientationLocked(false);
 
-        if (arrayList.size() != 0) {
-            for (int i = 0; i < arrayList.size(); i++) {
-                arrayList.get(i);
-            }
-        }
     }
 
     @Override
@@ -90,6 +73,7 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
         View v;
         v = inflater.inflate(R.layout.scan_layout, container, false);
         barcodeView = (CompoundBarcodeView) v.findViewById(R.id.barcode_scanner);
+        barcodeView.setStatusText("");
         tgbScanMode = (ToggleButton) v.findViewById(R.id.tgbScanMode);
         tgbScanMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -102,7 +86,7 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
             }
         });
 
-        barcodeView.decodeContinuous(callback);
+        barcodeView.decodeContinuous(this);
         return v;
     }
 
@@ -120,41 +104,6 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    private BarcodeCallback callback = new BarcodeCallback() {
-        @Override
-        public void barcodeResult(BarcodeResult result) {
-            if (result.getText() != null) {
-                barcodeView.setStatusText(result.getText());
-                Calendar c = Calendar.getInstance();
-                DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-                sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-                Date date = new Date();
-                String convertdate = sdf.format(date);
-                if (tgbScanMode.isChecked()) {
-                    if (DataManager.sStudentHistoryData == null) {
-                        DataManager.sStudentHistoryData = new ArrayList<>();
-                    }
-                    history = new History(result.getText().toString(), convertdate);
-                    DataManager.sStudentHistoryData.add(history);
-                    DataManager.saveStudentHistory();
-                } else {
-                    if (DataManager.sBookHistoryData == null) {
-                        DataManager.sBookHistoryData = new ArrayList<>();
-                    }
-                    history = new History(result.getText().toString(), convertdate);
-                    DataManager.sBookHistoryData.add(history);
-                    DataManager.saveBookHistory();
-                }
-                mCallback.trasnferMainHistoryFragment();
-            }
-        }
-
-        @Override
-        public void possibleResultPoints(List<ResultPoint> resultPoints) {
-        }
-    };
-
-
 
     @Override
     public void onStart() {
@@ -165,18 +114,22 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
         else {
             tgbScanMode.setChecked(false);
         }
+
+        Boolean isChecked = SharedPreferenceUtil.getInstance().getBoolean(Constant.SOUND);
+        if (isChecked == true)
+            intentIntegrator.setBeepEnabled(true);
     }
 
     @Override
     public void onResume() {
-        barcodeView.resume();
         super.onResume();
+        barcodeView.resume();
     }
 
     @Override
     public void onPause() {
-        barcodeView.pause();
         super.onPause();
+        barcodeView.pause();
     }
 
     @Override
@@ -184,4 +137,45 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void barcodeResult(BarcodeResult result) {
+
+        barcodeView.pause();
+
+        if (result.getText() != null) {
+
+            History history;
+
+            if (tgbScanMode.isChecked()) {
+
+                if (DataManager.sStudentHistoryData == null) {
+                    DataManager.sStudentHistoryData = new ArrayList<>();
+                }
+
+                history = new History(result.getText().toString(), DateUtil.getCurrentDate());
+                DataManager.sStudentHistoryData.add(history);
+                DataManager.saveStudentHistory();
+                mCallback.transferStudentDetailFragment(history);
+
+            } else {
+
+                if (DataManager.sBookHistoryData == null) {
+                    DataManager.sBookHistoryData = new ArrayList<>();
+                }
+
+                history = new History(result.getText().toString(), DateUtil.getCurrentDate());
+                DataManager.sBookHistoryData.add(history);
+                DataManager.saveBookHistory();
+                mCallback.transferBookDetailFragment(history);
+            }
+            AppLog.d("TESTED", result.getTimestamp() + "");
+        }
+
+        barcodeView.resume();
+    }
+
+    @Override
+    public void possibleResultPoints(List<ResultPoint> resultPoints) {
+
+    }
 }
