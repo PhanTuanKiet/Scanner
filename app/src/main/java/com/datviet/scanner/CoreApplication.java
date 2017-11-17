@@ -7,6 +7,9 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.datviet.utils.Constant;
+import com.datviet.utils.KEY;
+import com.datviet.utils.SharedPreferenceUtil;
 
 
 public class CoreApplication extends android.support.multidex.MultiDexApplication {
@@ -29,6 +32,18 @@ public class CoreApplication extends android.support.multidex.MultiDexApplicatio
         super.onCreate();
 
         sInstance = this;
+
+        boolean isRunned = SharedPreferenceUtil.getInstance().getBoolean(KEY.IS_RUN);
+        if(!isRunned){
+            initDefaultValue();
+        }
+    }
+
+    private void initDefaultValue(){
+        SharedPreferenceUtil.getInstance().saveBoolean(Constant.LOADING_IMAGE, true);
+        SharedPreferenceUtil.getInstance().saveBoolean(Constant.SOUND, false);
+        SharedPreferenceUtil.getInstance().saveBoolean(Constant.VIBRATE, false);
+        SharedPreferenceUtil.getInstance().saveBoolean(KEY.IS_RUN, true);
     }
 
 

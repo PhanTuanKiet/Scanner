@@ -13,21 +13,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.datviet.adapter.HistoryAdapter;
-import com.datviet.model.History;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.DataManager;
 import com.datviet.scanner.SpacingItemDecoration;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.ArrayList;
-
 
 public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
-    private History history;
-    private ArrayList<History> ArrayList;
     private static BookHistoryFragment mFragment;
     private ImageView ivBookBG;
 
@@ -47,14 +42,13 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
                              Bundle savedInstanceState) {
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.history_layout, container, false);
+        initialize(viewGroup);
+        return viewGroup;
+    }
+
+    public void initialize(ViewGroup viewGroup){
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recycler_view);
-
-        //mData = FirebaseDatabase.getInstance().getReference();
-        ArrayList = new ArrayList<History>();
-        history = new History();
-
         ivBookBG = (ImageView) viewGroup.findViewById(R.id.ivBookIconBG);
-
         mAdapter = new HistoryAdapter(DataManager.sBookHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -72,7 +66,7 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
 
-                if (direction == ItemTouchHelper.RIGHT) {
+                if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
                     builder.setMessage("Bạn có chắc chắn muốn xóa ?");
 
@@ -98,23 +92,13 @@ public class BookHistoryFragment extends BaseFragment implements HistoryAdapter.
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        //prepareHistoryData();
-
-        return viewGroup;
     }
+
     @Override
     public void onStart() {
         super.onStart();
         if (mAdapter.getItemCount()==0)
             ivBookBG.setVisibility(View.VISIBLE);
-    }
-
-    private void prepareHistoryData() {
-           DataManager.sBookHistoryData.add(new History("111222","22-11-2017,6:77"));
-           DataManager.sBookHistoryData.add(new History("114443222","22-11-2017,6:77"));
-           DataManager.sBookHistoryData.add(new History("11142222","22-11-2017,6:77"));
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

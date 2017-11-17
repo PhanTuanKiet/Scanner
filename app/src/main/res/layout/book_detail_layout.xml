@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/lightGray"
     android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvBookCode"
@@ -24,323 +22,292 @@
 
         <LinearLayout
             android:id="@+id/lnrDetailHeader"
-            android:layout_margin="5dp"
-            android:background="@color/darkBackground"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/darkGray"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_margin="5dp"
                 android:id="@+id/ivBookImage"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/book_detail_image_width"
+                android:layout_height="@dimen/book_detail_image_height"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/book_placeholder"
-                android:scaleType="fitXY" />
+                android:layout_margin="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/book_placeholder" />
 
             <TextView
                 android:id="@+id/tvBookName"
+                style="@style/TextDetailStyle"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="3"
                 android:maxLines="5"
-                android:text=""
-                android:textColor="@color/white"
                 android:textSize="18dp" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@drawable/divider" />
 
         <ScrollView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="20dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Thể Loại "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
-
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_category"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
                     <TextView
                         android:id="@+id/tvBookCategory"
-                        android:layout_width="50dp"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
+                        android:layout_margin="@dimen/detail_text_margin"
                         android:maxLines="2"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_text_size" />
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Số Lượng\nCòn Lại "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/tvBookQuantity"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:maxLines="2"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_text_size" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
-
-                    <TextView
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Nhà Xuất Bản "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
-
-
-
-                    <TextView
-                        android:id="@+id/tvPublisher"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:maxLines="2"
-                        android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/divider_height"
                     android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="20dp"
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Năm Xuất Bản "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
-
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_remain"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
                     <TextView
-                        android:id="@+id/tvPublishYear"
-                        android:layout_width="50dp"
+                        android:id="@+id/tvBookRemain"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
+                        android:layout_margin="@dimen/detail_text_margin"
                         android:maxLines="2"
-                        android:textColor="@color/white"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/divider_height"
                     android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="20dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Nhà Cung Cấp "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
-
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_publisher"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
                     <TextView
-                        android:id="@+id/tvSupplierName"
-                        android:layout_width="50dp"
+                        android:id="@+id/tvBookPublisher"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
+                        android:layout_margin="@dimen/detail_text_margin"
                         android:maxLines="2"
-                        android:textColor="@color/white"
+                        android:textSize="@dimen/detail_text_size" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@drawable/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_publish_year"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
+
+                    <TextView
+                        android:id="@+id/tvBookPublishYear"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:maxLines="2"
+                        android:text=""
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/divider_height"
                     android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_row_height">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="20dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Tác giả "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_supplier_name"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
+                    <TextView
+                        android:id="@+id/tvBookSupplierName"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textSize="@dimen/detail_text_size" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@drawable/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_author"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
                     <TextView
                         android:id="@+id/tvBookAuthor"
-                        android:layout_width="50dp"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:maxLines="2"
-                        android:textColor="@color/white"
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:text=""
                         android:textSize="@dimen/detail_text_size" />
+
                 </LinearLayout>
 
                 <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider" />
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="20dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Mô tả"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_description"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
                     <TextView
                         android:id="@+id/tvBookDescription"
-                        android:layout_width="50dp"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:maxLines="4"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/white"
+                        android:layout_margin="@dimen/detail_text_margin"
                         android:textSize="@dimen/detail_text_size" />
+
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/divider_height"
                     android:background="@drawable/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="20dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.8"
-                        android:text="Tóm tắt"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/detail_row_text_size"
-                        android:textStyle="bold" />
+                        android:layout_margin="@dimen/detail_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/book_short_description"
+                        style="@style/TextDetailTitleStyle"
+                        android:textSize="@dimen/detail_row_title_text_size" />
 
                     <TextView
                         android:id="@+id/tvBookShortDescription"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="3"
-                        android:maxLines="4"
-                        android:textColor="@color/white"
+                        style="@style/TextDetailStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/detail_text_margin"
                         android:textSize="@dimen/detail_text_size" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider" />
             </LinearLayout>
+
         </ScrollView>
 
+
     </LinearLayout>
-    </RelativeLayout>
+</LinearLayout>

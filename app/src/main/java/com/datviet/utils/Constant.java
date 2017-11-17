@@ -15,4 +15,11 @@ public class Constant {
     //API
     public static final String ID = "8bb36621fab8f0ff68660ee5db9758a2";
     public static final String SIGNATURE_KEY = "I/qZ+Pk6eAb+S0N9lo4mIwWKUnJ6Odmqu8Q3+sZcSAWGA8nr8hLP5OTdNugGgPfCZ16d8o954BYruWBJCOlvfA9chP4WFxgnUaoMZzJzLasOBH9KttFzANPmKgOzbTqT8Wo+pdd8MR8shE1P5sVI/3bBbQp2cxFtR3Lp1g9WOys=";
+
+    public static final String SCAN_FRAGMENT_TITLE = "Scan";
+    public static final String HISTORY_FRAGMENT_TITLE = "Lịch Sử";
+    public static final String SETTING_FRAGMENT_TITLE = "Cài Đặt";
+    public static final String BOOK_DETAIL_FRAGMENT_TITLE = "Chi Tiết Sách";
+    public static final String STUDENT_DETAIL_FRAGMENT_TITLE = "Chi Tiết Sinh Viên";
+
 }

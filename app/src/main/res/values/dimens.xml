@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="detail_row_height">60dp</dimen>
-    <dimen name="detail_row_text_size">16dp</dimen>
-    <dimen name="detail_text_size">14dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="logo_w_h">100dp</dimen>
+    <dimen name="app_title_text_size">25dp</dimen>
+    <!-- Setting Fragmnent -->
+    <dimen name="setting_row_height">60dp</dimen>
+    <dimen name="setting_row_title_text_size">18dp</dimen>
+    <!-- Book and Student Fragment -->
+    <dimen name="detail_row_margin_left">5dp</dimen>
+    <dimen name="detail_text_margin">2dp</dimen>
+    <dimen name="detail_row_title_text_size">13dp</dimen>
+    <dimen name="detail_text_size">18dp</dimen>
+    <dimen name="book_detail_image_width">120dp</dimen>
+    <dimen name="book_detail_image_height">120dp</dimen>
+    <!-- Book Borrow list -->
+    <dimen name="book_borrow_item_text_size">14dp</dimen>
+    <dimen name="book_borrow_date_text_size">11dp</dimen>
+    <!-- History list-->
+    <dimen name="history_item_text_size">17dp</dimen>
+    <dimen name="history_item_height">50dp</dimen>
+    <!-- Divider -->
+    <dimen name="divider_height">1dp</dimen>
 </resources>

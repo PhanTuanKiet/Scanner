@@ -1,35 +1,22 @@
 package com.datviet.adapter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.datviet.model.History;
+import com.datviet.model.RecyclerViewItem;
 import com.datviet.scanner.R;
-import com.datviet.utils.DataManager;
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
-/**
- * Created by Phong Phan on 18-Oct-17.
- */
-
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
 
-    private List<History> historyList;
+    private List<RecyclerViewItem> historyList;
     private final OnItemClickListener listener;
-    Context context;
 
-    public HistoryAdapter(List<History> historyList,OnItemClickListener listener) {
+    public HistoryAdapter(List<RecyclerViewItem> historyList, OnItemClickListener listener) {
         this.historyList = historyList;
         this.listener = listener;
     }
@@ -51,14 +38,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             tvHistoryTime = (TextView) view.findViewById(R.id.tvHistoryTime);
         }
 
-        public void bind(History history, final int pos, final OnItemClickListener listener) {
-            String strDateFormat = history.getDatetime();
+        public void bind(RecyclerViewItem recyclerViewItem, final int pos, final OnItemClickListener listener) {
+            String strDateFormat = recyclerViewItem.getDatetime();
             String strSplit = strDateFormat;
             String newSplit = strSplit;
             String[] dateTime = newSplit.split("[,]");
             tvHistoryDate.setText(dateTime[0]);
             tvHistoryTime.setText(dateTime[1]);
-            codeNumber.setText(history.getCode());
+            codeNumber.setText(recyclerViewItem.getCode());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
@@ -79,7 +66,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        History history = historyList.get(position);
+        RecyclerViewItem history = historyList.get(position);
         holder.bind(history,position,listener);
     }
 
@@ -90,16 +77,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     }
 
     public void removeItem(int position) {
-        if(historyList!=null){
+        if(historyList !=null){
             historyList.remove(position);
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position, historyList.size());
+            notifyItemRangeChanged(position,historyList.size());
         }
         notifyDataSetChanged();
     }
 
-    public void restoreItem(History item, int position) {
-        historyList.add(position, item);
+    public void restoreItem(RecyclerViewItem recyclerViewItem, int position) {
+        historyList.add(position, recyclerViewItem);
         notifyItemInserted(position);
     }
 }

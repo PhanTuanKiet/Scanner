@@ -69,23 +69,18 @@ public class API {
     public static void getMemberInfo(final String memberCode, final RequestListener listener) {
 
         String studentUrl = Domain.HOST + "/api/library/v1/getInfoMember";
-        AppLog.d(TAG, "#getMemberInfo-->  " + studentUrl);
-
-        String bookUrl = Domain.HOST + "/api/library/v1/getInfoBook";
-        AppLog.d(TAG, "#getMemberInfo-->  " + bookUrl);
-
-
+        AppLog.d(TAG, "#getStudentInfo-->  " + studentUrl);
 
         StringRequest request = new StringRequest(Request.Method.POST,studentUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                AppLog.d(TAG, "#getMemberInfo#onResponse-->  " + response);
+                AppLog.d(TAG, "#getStudentInfo#onResponse-->  " + response);
                 if (listener != null) listener.onResponse(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                AppLog.d(TAG, "#getMemberInfo#Error--> " + error.getMessage());
+                AppLog.d(TAG, "#getStudentInfo#Error--> " + error.getMessage());
                 if (listener != null) listener.onError();
             }
         }) {

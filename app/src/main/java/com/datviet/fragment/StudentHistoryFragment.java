@@ -13,26 +13,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.datviet.adapter.HistoryAdapter;
-import com.datviet.model.History;
+import com.datviet.model.RecyclerViewItem;
 import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.scanner.SpacingItemDecoration;
 import com.datviet.utils.DataManager;
-import com.google.firebase.database.DatabaseReference;
-
-import java.util.ArrayList;
 
 
 public class StudentHistoryFragment extends BaseFragment implements HistoryAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private HistoryAdapter mAdapter;
-    private History history;
-    private ArrayList<History> ArrayList;
     private static StudentHistoryFragment mFragment;
-    private ImageView ivPersonBG;
-
-    private DatabaseReference mData;
+    private ImageView ivStudentBG;
 
     public StudentHistoryFragment() {
     }
@@ -48,13 +41,13 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
                              Bundle savedInstanceState) {
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.history_layout, container, false);
+        initalize(viewGroup);
+        return viewGroup;
+    }
+
+    public  void initalize(ViewGroup viewGroup){
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recycler_view);
-
-        //mData = FirebaseDatabase.getInstance().getReference();
-        ArrayList = new ArrayList<History>();
-        history = new History();
-
-        ivPersonBG = (ImageView) viewGroup.findViewById(R.id.ivPersonIconBG);
+        ivStudentBG = (ImageView) viewGroup.findViewById(R.id.ivStudentIconBG);
 
         mAdapter = new HistoryAdapter(DataManager.sStudentHistoryData, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -73,7 +66,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
 
-                if (direction == ItemTouchHelper.RIGHT) {
+                if (direction == ItemTouchHelper.RIGHT ) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
                     builder.setMessage("Bạn có chắc chắn muốn xóa ?");
 
@@ -85,7 +78,7 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
                             recyclerView.setAdapter(null);
                             recyclerView.setAdapter(mAdapter);
                             if (mAdapter.getItemCount() == 0)
-                                ivPersonBG.setVisibility(View.VISIBLE);
+                                ivStudentBG.setVisibility(View.VISIBLE);
                         }
                     }).setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
                         @Override
@@ -99,24 +92,13 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        //prepareHistoryData();
-
-        return viewGroup;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         if (mAdapter.getItemCount() == 0)
-            ivPersonBG.setVisibility(View.VISIBLE);
-    }
-
-    private void prepareHistoryData() {
-        DataManager.sBookHistoryData.add(new History("111222", "22-11-2017,6:77"));
-        DataManager.sBookHistoryData.add(new History("114443222", "22-11-2017,6:77"));
-        DataManager.sBookHistoryData.add(new History("11142222", "22-11-2017,6:77"));
-        mAdapter.notifyDataSetChanged();
+            ivStudentBG.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -124,5 +106,4 @@ public class StudentHistoryFragment extends BaseFragment implements HistoryAdapt
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.transferStudentDetailFragment(DataManager.sStudentHistoryData.get(pos));
     }
-
 }

@@ -9,4 +9,7 @@ public class KEY {
     public static final String MEMBER_CODE = "MemberCode";
     public static final String BOOK_CODE = "BookCode";
 
+    //First run
+    public static final String IS_RUN = "IS_RUN";
+
 }

@@ -1,342 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    >
+    android:background="@color/lightGray"
+    android:orientation="vertical">
 
     <ScrollView
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/detail_row_margin_left"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="20dp"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Mã Thẻ \nThư Viện "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
+                    android:layout_margin="@dimen/detail_text_margin"
+                    android:gravity="center_vertical"
+                    android:text="@string/member_code"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
                 <TextView
                     android:id="@+id/tvMemberCode"
-                    android:layout_width="50dp"
+                    style="@style/TextDetailStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
+                    android:layout_margin="@dimen/detail_text_margin"
                     android:maxLines="2"
-                    android:text=""
-                    android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
-
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@drawable/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/detail_row_margin_left"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="20dp"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Mã Sinh Viên "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
+                    android:layout_margin="@dimen/detail_text_margin"
+                    android:gravity="center_vertical"
+                    android:text="@string/student_id"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
                 <TextView
                     android:id="@+id/tvStudentID"
-                    android:layout_width="50dp"
+                    style="@style/TextDetailStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
+                    android:layout_margin="@dimen/detail_text_margin"
                     android:maxLines="2"
-                    android:text=""
-                    android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@drawable/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/detail_row_margin_left"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="20dp"
+                    android:id="@+id/textView7"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Họ Tên "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
+                    android:layout_margin="@dimen/detail_text_margin"
+                    android:gravity="center_vertical"
+                    android:text="@string/student_name"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
                 <TextView
                     android:id="@+id/tvStudentName"
-                    android:layout_width="50dp"
+                    style="@style/TextDetailStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
+                    android:layout_margin="@dimen/detail_text_margin"
                     android:maxLines="2"
-                    android:text=""
-                    android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@drawable/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/detail_row_margin_left"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="20dp"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Số Điện Thoại "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
+                    android:layout_margin="@dimen/detail_text_margin"
+                    android:gravity="center_vertical"
+                    android:text="@string/student_phone"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
                 <TextView
                     android:id="@+id/tvPhone"
-                    android:layout_width="50dp"
+                    style="@style/TextDetailStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
+                    android:layout_margin="@dimen/detail_text_margin"
                     android:maxLines="2"
-                    android:text=""
-                    android:textColor="@color/white"
                     android:textSize="@dimen/detail_text_size" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@drawable/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_row_height">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/detail_row_margin_left"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="20dp"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Email "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
+                    android:layout_margin="@dimen/detail_text_margin"
+                    android:gravity="center_vertical"
+                    android:text="@string/student_email"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
                 <TextView
                     android:id="@+id/tvEmail"
-                    android:layout_width="50dp"
+                    style="@style/TextDetailStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
-                    android:maxLines="2"
-                    android:text=""
-                    android:textColor="@color/white"
+                    android:layout_margin="@dimen/detail_text_margin"
                     android:textSize="@dimen/detail_text_size" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@drawable/divider" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_margin="5dp"
-                    android:layout_width="20dp"
+                    android:id="@+id/book_borrow_list_title"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Danh Sách Mượn "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
-
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:gravity="center_vertical"
+                    android:text="@string/student_book_borrow_list"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
                 <TextView
-                    android:id="@+id/tvBorrowBookList"
-                    android:layout_width="50dp"
+                    android:id="@+id/tvNumberBookBorrow"
+                    style="@style/TextDetailTitleStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="3"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_text_size" />
-            </LinearLayout>
+                    android:layout_marginLeft="@dimen/detail_row_margin_left"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@id/book_borrow_list_title"
+                    android:textSize="@dimen/detail_row_title_text_size" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/book_borrow_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/book_borrow_list_title"
+                    android:scrollbars="vertical"
+                    android:visibility="visible" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            </RelativeLayout>
 
-                <TextView
-                    android:layout_margin="5dp"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Tên Sách Mượn "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/tvBorrowBookName"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="3"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_text_size" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_margin="5dp"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Ngày mượn sách "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/tvBeginDate"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="3"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_text_size" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_margin="5dp"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Ngày trả sách "
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_row_text_size"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/tvExpireDate"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="3"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/detail_text_size" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider" />
         </LinearLayout>
 
+
     </ScrollView>
-
-
 
 </LinearLayout>

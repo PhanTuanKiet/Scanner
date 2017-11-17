@@ -11,18 +11,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.datviet.model.History;
+import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.SharedPreferenceUtil;
 
-import java.util.ArrayList;
 
 public class SettingFragment extends BaseFragment {
     private TextView tvDelHistory, tvAboutUs;
-    private ArrayList<History> arrayList;
-    private History history;
     private Switch swImage, swSound, swVibrate;
     private int index;
 
@@ -38,6 +35,11 @@ public class SettingFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.setting_layout, container, false);
+        initialize(viewGroup);
+        return viewGroup;
+    }
+
+    public void initialize(ViewGroup viewGroup){
         tvDelHistory = (TextView) viewGroup.findViewById(R.id.tvDelHistory);
         tvAboutUs = (TextView) viewGroup.findViewById(R.id.tvAboutUs);
         swImage = (Switch) viewGroup.findViewById(R.id.swImageSwitch);
@@ -54,7 +56,7 @@ public class SettingFragment extends BaseFragment {
                 }
             }
         });
-
+        // Turn on/off loading image in book detail
         swImage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -65,7 +67,7 @@ public class SettingFragment extends BaseFragment {
                 }
             }
         });
-
+        // Turn on/off scanner sound
         swSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -76,7 +78,7 @@ public class SettingFragment extends BaseFragment {
                 }
             }
         });
-
+        // Turn on/off scanner vibrate
         swVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -87,13 +89,12 @@ public class SettingFragment extends BaseFragment {
                 }
             }
         });
-
         tvAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
                 builder.setTitle("Giới Thiệu");
-                builder.setMessage("Công ty Đất Việt \n \n"  + "Lầu 7 (Tòa nhà CĐ Viễn Đông), Lô 2, Đường 16, Công viên phần mềm Quang Trung, P. Tân Chánh Hiệp, Q.12, TP.HCM\n");
+                builder.setMessage("Công ty Đất Việt \n"  + "Lầu 7 (Tòa nhà CĐ Viễn Đông), Lô 2, Đường 16, Công viên phần mềm Quang Trung, P. Tân Chánh Hiệp, Q.12, TP.HCM\n");
                 builder.setPositiveButton("ẨN", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -103,7 +104,6 @@ public class SettingFragment extends BaseFragment {
             }
         });
 
-        return viewGroup;
     }
 
     @Override
@@ -128,6 +128,12 @@ public class SettingFragment extends BaseFragment {
             swVibrate.setChecked(true);
         else {
             swVibrate.setChecked(false);
+        }
+        // Check current tab group
+        MainActivity activity = getParentActivity();
+        if (activity != null) {
+            activity.updateTabStatus(3);
+            activity.setTitle(Constant.SETTING_FRAGMENT_TITLE);
         }
     }
 

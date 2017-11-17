@@ -1,15 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_one"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:title="Lịch sử"/>
-    <item
-        android:id="@+id/action_two"
+        android:id="@+id/action_scan"
         android:icon="@drawable/ic_scan"
         android:title="Quét"/>
     <item
-        android:id="@+id/action_three"
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="Lịch sử"/>
+    <item
+        android:id="@+id/action_setting"
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="Cài đặt"/>
 

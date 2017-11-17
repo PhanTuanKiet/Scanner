@@ -1,12 +1,8 @@
 package com.datviet.fragment;
 
-import com.datviet.model.History;
-
-/**
- * Created by Phong Phan on 13-Nov-17.
- */
+import com.datviet.model.RecyclerViewItem;
 
 public interface Transfer {
-    void transferBookDetailFragment(History history);
-    void transferStudentDetailFragment(History history);
+    void transferBookDetailFragment(RecyclerViewItem recyclerViewItem);
+    void transferStudentDetailFragment(RecyclerViewItem recyclerViewItem);
 }

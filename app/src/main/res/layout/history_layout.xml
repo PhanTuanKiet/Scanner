@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lightGray">
 
-        <android.support.v7.widget.RecyclerView
-            android:visibility="visible"
-            android:id="@+id/recycler_view"
-            android:scrollbars="vertical"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:scrollbars="vertical"
+        android:visibility="visible" />
 
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/ivBookIconBG"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/book_icon"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+    <ImageView
+        android:id="@+id/ivBookIconBG"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/book_icon"
+        android:visibility="gone" />
 
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/ivPersonIconBG"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/person_icon"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
+    <ImageView
+        android:id="@+id/ivStudentIconBG"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/student_icon"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

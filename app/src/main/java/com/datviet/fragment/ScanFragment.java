@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.datviet.model.History;
+import com.datviet.model.RecyclerViewItem;
+import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
-import com.datviet.utils.AppLog;
 import com.datviet.utils.Constant;
 import com.datviet.utils.DataManager;
 import com.datviet.utils.DateUtil;
@@ -33,7 +34,8 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener, 
     public Transfer mCallback;
     private static ScanFragment mFragment;
     private CompoundBarcodeView barcodeView;
-    private IntentIntegrator intentIntegrator;
+    private TextView tvScanMode;
+    private IntentIntegrator mIntentIntegrator;
 
     private ToggleButton tgbScanMode;
 
@@ -56,38 +58,42 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        intentIntegrator = new IntentIntegrator(getActivity());
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
-        intentIntegrator.setPrompt("Scan a barcode");
-        intentIntegrator.setCameraId(0);  // Use a specific camera of the device
-        intentIntegrator.setBeepEnabled(false);
-        intentIntegrator.setBarcodeImageEnabled(true);
-        intentIntegrator.setOrientationLocked(false);
+        mIntentIntegrator = new IntentIntegrator(getActivity());
+        mIntentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        mIntentIntegrator.setPrompt("Scan a barcode");
+        mIntentIntegrator.setCameraId(0);  // Use a specific camera of the device
+        mIntentIntegrator.setBeepEnabled(false);
+        mIntentIntegrator.setBarcodeImageEnabled(true);
+        mIntentIntegrator.setOrientationLocked(false);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.scan_layout, container, false);
+        initialize(v);
+        return v;
+    }
 
-        View v;
-        v = inflater.inflate(R.layout.scan_layout, container, false);
+    public void initialize(View v){
         barcodeView = (CompoundBarcodeView) v.findViewById(R.id.barcode_scanner);
-        barcodeView.setStatusText("");
+        tvScanMode = (TextView) v.findViewById(R.id.tvScanMode);
         tgbScanMode = (ToggleButton) v.findViewById(R.id.tgbScanMode);
         tgbScanMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE, true);
+                    tvScanMode.setText("Quét mã sinh viên");
                 } else {
                     SharedPreferenceUtil.getInstance().saveBoolean(Constant.SCAN_MODE, false);
+                    tvScanMode.setText("Quét mã sách");
                 }
             }
         });
-
+        barcodeView.setStatusText("");
         barcodeView.decodeContinuous(this);
-        return v;
     }
 
     @Override
@@ -108,16 +114,24 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onStart() {
         super.onStart();
-        Boolean isTurnOnImage = SharedPreferenceUtil.getInstance().getBoolean(Constant.SCAN_MODE);
-        if (isTurnOnImage == true)
+        // Check scan mode
+        Boolean isTurnOnMode = SharedPreferenceUtil.getInstance().getBoolean(Constant.SCAN_MODE);
+        if (isTurnOnMode == true) {
             tgbScanMode.setChecked(true);
-        else {
+        }else {
             tgbScanMode.setChecked(false);
         }
-
+        // Check scanner sound
         Boolean isChecked = SharedPreferenceUtil.getInstance().getBoolean(Constant.SOUND);
         if (isChecked == true)
-            intentIntegrator.setBeepEnabled(true);
+            mIntentIntegrator.setBeepEnabled(true);
+        // Check current tab group
+        MainActivity activity = getParentActivity();
+        if(activity!=null){
+            activity.updateTabStatus(1);
+            activity.setTitle(Constant.SCAN_FRAGMENT_TITLE);
+        }
+
     }
 
     @Override
@@ -132,6 +146,7 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener, 
         barcodeView.pause();
     }
 
+
     @Override
     public void onClick(View v) {
 
@@ -143,34 +158,29 @@ public class ScanFragment extends BaseFragment implements View.OnClickListener, 
         barcodeView.pause();
 
         if (result.getText() != null) {
-
-            History history;
-
+            // Transfer data depend on scan mode
+            RecyclerViewItem recyclerViewItem;
             if (tgbScanMode.isChecked()) {
 
                 if (DataManager.sStudentHistoryData == null) {
                     DataManager.sStudentHistoryData = new ArrayList<>();
                 }
-
-                history = new History(result.getText().toString(), DateUtil.getCurrentDate());
-                DataManager.sStudentHistoryData.add(history);
+                recyclerViewItem = new RecyclerViewItem(result.getText().toString(), DateUtil.getCurrentDate());
+                DataManager.sStudentHistoryData.add(recyclerViewItem);
                 DataManager.saveStudentHistory();
-                mCallback.transferStudentDetailFragment(history);
+                mCallback.transferStudentDetailFragment(recyclerViewItem);
 
             } else {
-
                 if (DataManager.sBookHistoryData == null) {
                     DataManager.sBookHistoryData = new ArrayList<>();
                 }
 
-                history = new History(result.getText().toString(), DateUtil.getCurrentDate());
-                DataManager.sBookHistoryData.add(history);
+                recyclerViewItem = new RecyclerViewItem(result.getText().toString(), DateUtil.getCurrentDate());
+                DataManager.sBookHistoryData.add(recyclerViewItem);
                 DataManager.saveBookHistory();
-                mCallback.transferBookDetailFragment(history);
+                mCallback.transferBookDetailFragment(recyclerViewItem);
             }
-            AppLog.d("TESTED", result.getTimestamp() + "");
         }
-
         barcodeView.resume();
     }
 

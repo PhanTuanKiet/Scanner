@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.datviet.scanner.MainActivity;
 import com.datviet.scanner.R;
 import com.datviet.utils.Constant;
 import com.datviet.utils.SharedPreferenceUtil;
@@ -65,7 +66,12 @@ public class MainHistoryFragment extends BaseFragment {
         else {
             viewPager.setCurrentItem(0);
         }
-
+        // check current tab group
+        MainActivity activity = getParentActivity();
+        if (activity != null) {
+            activity.updateTabStatus(2);
+            activity.setTitle(Constant.HISTORY_FRAGMENT_TITLE);
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {

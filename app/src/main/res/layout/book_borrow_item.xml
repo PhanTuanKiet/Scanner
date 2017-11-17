@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/round_corner_shape"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,28 +11,39 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-
-        <ImageView
-            android:id="@+id/ivBarcodeIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:src="@drawable/barcode_icon" />
-
         <TextView
-            android:id="@+id/tvBarcodeNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="8"
+            android:text="["
+            android:textColor="@color/white"
+            android:textSize="@dimen/history_item_text_size" />
+
+        <TextView
+            android:id="@+id/tvBorrowCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:maxLines="2"
-            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/history_item_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="]"
+            android:textColor="@color/white"
+            android:textSize="@dimen/history_item_text_size" />
+
+        <TextView
+            android:id="@+id/tvBorrowName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="@dimen/history_item_text_size" />
 
@@ -41,34 +52,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_toRightOf="@id/tvBarcodeNumber"
+            android:layout_toRightOf="@id/tvBorrowCode"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvHistoryDate"
+                android:id="@+id/tvBeginDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tvBarcodeNumber"
-                android:layout_below="@+id/tvBarcodeNumber"
                 android:layout_marginRight="5dp"
-                android:text=""
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textSize="@dimen/book_borrow_date_text_size" />
 
             <TextView
-                android:id="@+id/tvHistoryTime"
+                android:id="@+id/tvExpireDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tvBarcodeNumber"
-                android:layout_below="@+id/tvBarcodeNumber"
                 android:layout_marginRight="5dp"
-                android:text=""
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
-                android:textSize="10dp"
-                android:textStyle="italic" />
+                android:textSize="@dimen/book_borrow_date_text_size" />
 
         </LinearLayout>
     </LinearLayout>

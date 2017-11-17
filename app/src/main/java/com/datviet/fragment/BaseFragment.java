@@ -4,9 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-/**
- * Created by Phong Phan on 11-Nov-17.
- */
+import com.datviet.scanner.MainActivity;
 
 public class BaseFragment extends android.support.v4.app.Fragment {
     private ProgressDialog pDialog;
@@ -17,6 +15,7 @@ public class BaseFragment extends android.support.v4.app.Fragment {
 
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
 
     }
 
@@ -26,5 +25,10 @@ public class BaseFragment extends android.support.v4.app.Fragment {
 
     protected void hiddenLoadingDialog() {
         if (pDialog != null) pDialog.cancel();
+    }
+
+
+    protected MainActivity getParentActivity(){
+        return (MainActivity) getActivity();
     }
 }

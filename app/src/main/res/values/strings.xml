@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">Scanner</string>
+    <string name="app_name">Thư Viện Viễn Đông</string>
+
+    <!-- Book details title string value -->
+    <string name="book_name">Tên Sách</string>
+    <string name="book_category">Thể Loại</string>
+    <string name="book_remain">Số Lượng Còn Lại</string>
+    <string name="book_publisher">Nhà Xuất Bản</string>
+    <string name="book_publish_year">Năm Xuất Bản</string>
+    <string name="book_supplier_name">Nhà Cung Cấp</string>
+    <string name="book_author">Tác Giả</string>
+    <string name="book_description">Mô Tả</string>
+    <string name="book_short_description">Tóm Tắt</string>
+
+    <!-- Student details title string value -->
+    <string name="member_code">Mã Thẻ Thư Viện</string>
+    <string name="student_id">Mã Sinh Viên</string>
+    <string name="student_name">Họ Tên</string>
+    <string name="student_phone">Số Điện Thoại</string>
+    <string name="student_email">Email</string>
+    <string name="student_book_borrow_list">Danh Sách Mượn</string>
 </resources>

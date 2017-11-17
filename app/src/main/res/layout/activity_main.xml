@@ -15,19 +15,17 @@
         android:id="@+id/frame_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    </FrameLayout>
+        android:layout_weight="1"></FrameLayout>
 
 
-    <android.support.design.widget.BottomNavigationView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.BottomNavigationView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemTextColor="@color/white"
-        app:itemBackground="@color/mainColor"
-        app:itemIconTint="@drawable/selector"
         android:layout_gravity="bottom"
+        app:itemBackground="@color/green"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
 
 
